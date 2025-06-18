@@ -1,0 +1,172 @@
+body {
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  background-color: White;
+  color: black;
+  margin: 0px;
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15pt;
+}
+
+div.centered { margin: -10px auto 0; }
+span.optional { display: none; }
+
+div.section {
+  margin-top: 20px;
+  max-width: 400px;
+}
+
+@media only screen and (min-width: 600px) {
+  div.section { max-width: 800px; }
+  div.header {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(200deg, rgba(255,255,255,1) 0%, rgba(180,200,255,1) 100%);
+ }
+  div.side { text-align: left; margin-left: 15px; }
+  p.intro { font-size: 24px; }
+  div.blurb { border-radius: 20px; }
+  span.optional { display: inline; }
+}
+
+p.intro b { font-size: 20pt; }
+
+div.menu {
+  font-size: 16pt;
+  font-weight: 100;
+}
+
+b {
+  font-weight: 600;
+}
+
+div.contribute button {
+  width: 100px;
+  height: 50px;
+}
+
+div.menu a {
+  text-decoration: none;
+  color: Black;
+}
+
+button a {
+  text-decoration: none;
+  color: Black;
+}
+
+div.menu a:hover {
+  color: blue;
+  font-weight: 600;
+}
+
+button a:hover {
+  color: blue;
+  font-weight: 600;
+}
+
+button {
+  margin: 6pt 3pt 0 2pt;
+  font-size: 14pt;
+  background-color: Grey;
+  color: White;
+}
+
+button:hover {
+  font-size: 15pt;
+  background-color: Blue;
+}
+
+img.profile {
+  width: 200;
+  height: 200px
+}
+
+div.blurb {
+  margin: 0 auto;
+  user-select: none;
+  font-size: 15.5pt;
+  text-align: left;
+  max-width: 400px;
+  background-color: LemonChiffon;
+  padding: 8px 16pt;
+}
+
+div.blurb:hover {
+  margin: -2px auto;
+  border: 2px solid Blue;
+}
+
+div.creds {
+  display: flex;
+  padding-top: 8px;
+}
+
+div.whom {
+  font-size: 16pt;
+  padding-top: 4px;
+}
+
+.face {
+  margin-right: 10px;
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+p.rights {
+  font-size: 10pt;
+  padding: 0 6px;
+}
+
+p.rights span {
+  white-space: nowrap;
+}
+
+ul.list {
+  text-align: left;
+}
+
+ul.list li {
+  padding-bottom: 6px;
+}
+
+li span {
+  white-space: nowrap;
+}
+
+p.text {
+  text-align: left;
+  font-size: 14pt;
+  padding: 0 10px;
+}
+
+div.social {
+  font-size: 36pt;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+
+div.social i {
+  font-size: 30pt;
+  color: black;
+  padding: 0 15pt;
+}
+
+div.social i:hover {
+  font-size: 36pt;
+  color: blue;
+}
+
+div.sublink {
+  color: black;
+  font-size: 11pt;
+}
