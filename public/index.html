@@ -1,21 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Netpress</title>
-  <link rel="stylesheet" href="./style.css" type="text/css">
+  <meta name="description" content="Netpress -- John Woodell's software, arranged like a periodic table.">
+  <link rel="stylesheet" href="./periodic.css" type="text/css">
 </head>
 
-<body>
-  <div id="content">
-  <img src="logo.jpg">
-  <br/>
-  <br/>
-  Software Development  
-  <br/>
-  <br/>
-    <div><small>
-      <a href="privacy.html">privacy policy</a> |
-      <a href="terms.html">terms of service</a>
-    </small></div>
+<body class="periodic">
+  <div class="wrap">
+
+    <header class="top">
+      <img class="logo" src="logo.png" alt="Netpress">
+      <div>
+        <div class="wordmark">Netpress</div>
+        <div class="tagline">dev tools &amp; apps</div>
+      </div>
+    </header>
+
+    <p class="lede">
+      Developing in Ruby, Go, Swift, Kotlin, Javascript and Java.
+      Here are things I built or contributed to over the years, grouped
+      by what they have in common rather than by when they happened.
+    </p>
+
+    <div id="legend"></div>
+
+    <div id="grid"></div>
+
+    <div id="detail"></div>
+
+    <section class="about">
+      <h3>About</h3>
+      <p>
+      Years of experience developing tools and apps on a variety of development stacks with Ruby, Python and Javascript for startups and large companies including Google and Twitter. Designed and implemented applications from web/mobile UI through to data warehouse. Administered and deployed to UNIX boxes in physical racks and to AWS/Google Clouds. Held several roles that involved managing UI developers and software engineers. Had earlier career in technical publishing, graphic design and print/digital production.
+      </p>
+      <p class="career">
+        Full-stack engineer, 24 years (2002&ndash;2025) &middot;
+        UX designer, 7 years (1995&ndash;2002) &middot;
+        Graphic designer &amp; illustrator, 6 years (1989&ndash;1995)
+      </p>
+    </section>
+
+    <footer class="bottom">
+      &copy; 2026 Netpress.
+    </footer>
+
   </div>
+
+  <script src="./periodic.js"></script>
+</body>
 </html>
