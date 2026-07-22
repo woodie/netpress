@@ -1,15 +1,27 @@
 // netpress "periodic table" homepage -- one entry per project, grouped into
 // families the way a real periodic table groups elements by shared
 // properties. Each entry links to its real github.com/woodie/<repo>.
-//
-// tier: "highlight" (bigger, brighter, the ones with the best story),
-//       "standard", or "minor" (smaller, dimmer -- still real, just quieter).
+
+// GitHub's per-language colors (linguist) run invert(1) hue-rotate(180deg) --
+// the classic light-to-dark-mode filter trick -- to get variants that read
+// well against this page's near-black background. Any result that still
+// landed too dark (below ~32% lightness) got lifted to a legible mid-tone.
+// source hexes: https://github.com/ozh/github-colors (mirrors linguist's languages.yml)
+const LANGUAGES = [
+  { name: "Ruby", color: "#fb7185" },
+  { name: "Go", color: "#22d3ee" },
+  { name: "Swift", color: "#ff6e55" },
+  { name: "Kotlin", color: "#8b5de1" },
+  { name: "JavaScript", color: "#ffb700" },
+  { name: "Java", color: "#bd7f26" },
+  { name: "Docker", color: "#a5bac1" },
+];
 
 const FAMILIES = [
   { id: "apps", name: "Apps", color: "#fbbf24" },
-  { id: "testing", name: "Testing & Dev Tools", color: "#22d3ee" },
+  { id: "testing", name: "Testing", color: "#22d3ee" },
+  { id: "infra", name: "Infrastructure", color: "#a78bfa" },
   { id: "libraries", name: "Libraries", color: "#34d399" },
-  { id: "infra", name: "Infrastructure & Services", color: "#a78bfa" },
   { id: "contrib", name: "Contributions", color: "#fb7185" },
 ];
 
@@ -80,7 +92,7 @@ const ELEMENTS = [
     repo: "Caltrain-Schedule-MIDlet",
     family: "apps",
     tier: "standard",
-    lang: "Java (J2ME)",
+    lang: "Java",
     blurb: "A Caltrain schedule for J2ME feature phones -- pre-AI, pixel by pixel.",
     detail:
       "Hand-built UI for a J2ME MIDlet, back when \"low-level\" meant drawing " +
@@ -130,18 +142,6 @@ const ELEMENTS = [
       "xctidy and kotidy both follow its lead.",
   },
   {
-    symbol: "Gk",
-    name: "ginkgo-fd",
-    repo: "ginkgo-fd",
-    family: "testing",
-    tier: "highlight",
-    lang: "Go",
-    blurb: "A better output format for Ginkgo, Go's BDD test framework.",
-    detail:
-      "Ginkgo already does BDD-style specs for Go; this reformats its own " +
-      "console output to read more like RSpec's -fd documentation format.",
-  },
-  {
     symbol: "Ex",
     name: "expect",
     repo: "expect",
@@ -153,6 +153,18 @@ const ELEMENTS = [
       "Type-safe assertion matchers for Go, built on generics rather than " +
       "reflection or interface{} -- the same instinct behind the rest of " +
       "this family: tests should read like plain sentences.",
+  },
+  {
+    symbol: "Gk",
+    name: "ginkgo-fd",
+    repo: "ginkgo-fd",
+    family: "testing",
+    tier: "highlight",
+    lang: "Go",
+    blurb: "A better output format for Ginkgo, Go's BDD test framework.",
+    detail:
+      "Ginkgo already does BDD-style specs for Go; this reformats its own " +
+      "console output to read more like RSpec's -fd documentation format.",
   },
 
   // -- Humane -------------------------------------------------------------
@@ -246,7 +258,7 @@ const ELEMENTS = [
     repo: "dubious",
     family: "infra",
     tier: "highlight",
-    lang: "Mirah",
+    lang: "Java",
     blurb: "Started solo at Google -- with other contributors.",
     detail:
       "This is s starter project for Mirah on App Engine. " +
@@ -313,12 +325,87 @@ function githubUrl(repo) {
   return `https://github.com/woodie/${repo}`;
 }
 
+function langColor(lang) {
+  const fallback = "#8ecae6";
+  if (!lang) return fallback;
+  const exact = LANGUAGES.find((l) => l.name === lang);
+  if (exact) return exact.color;
+  // compound entries like "Ruby / Docker" -- match on the first language
+  const first = lang.split("/")[0].trim();
+  const partial = LANGUAGES.find((l) => l.name === first);
+  return partial ? partial.color : fallback;
+}
+
 function renderLegend() {
+  const langLegend = document.getElementById("lang-legend");
+  langLegend.innerHTML = LANGUAGES.map(
+    (l) =>
+      `<span class="legend-item" data-key="${l.name}"><i style="background:${l.color};color:${l.color}"></i>${l.name}</span>`
+  ).join("");
+
   const legend = document.getElementById("legend");
   legend.innerHTML = FAMILIES.map(
     (f) =>
-      `<span class="legend-item"><i style="background:${f.color};color:${f.color}"></i>${f.name}</span>`
+      `<span class="legend-item" data-key="${f.id}"><i style="background:${f.color};color:${f.color}"></i>${f.name}</span>`
   ).join("");
+
+  wireLegend("lang-legend", (key) => (el) => langMatches(el.dataset.lang, key));
+  wireLegend("legend", (key) => (el) => el.dataset.family === key);
+}
+
+// -- legend hover/click filtering ------------------------------------------
+// Hovering a legend entry (language or family) highlights matching cells
+// and mutes the rest. Clicking locks that state in place for 5s, then it
+// clears itself and everything returns to normal.
+
+let filterLockTimer = null;
+
+function langMatches(elLang, lang) {
+  if (!elLang) return false;
+  if (elLang === lang) return true;
+  return elLang.split("/").map((s) => s.trim()).includes(lang);
+}
+
+function applyFilter(matchFn) {
+  document.querySelectorAll(".element").forEach((el) => {
+    const match = matchFn(el);
+    el.classList.toggle("filter-highlight", match);
+    el.classList.toggle("filter-muted", !match);
+  });
+}
+
+function clearFilter() {
+  document.querySelectorAll(".element").forEach((el) => {
+    el.classList.remove("filter-highlight", "filter-muted");
+  });
+  document.querySelectorAll(".legend-item.locked").forEach((li) => li.classList.remove("locked"));
+}
+
+function wireLegend(containerId, matchFnFor) {
+  const items = document.querySelectorAll(`#${containerId} .legend-item`);
+  items.forEach((item) => {
+    const matchFn = matchFnFor(item.dataset.key);
+
+    item.addEventListener("mouseenter", () => {
+      if (!filterLockTimer) applyFilter(matchFn);
+    });
+
+    item.addEventListener("mouseleave", () => {
+      if (!filterLockTimer) clearFilter();
+    });
+
+    item.addEventListener("click", () => {
+      if (filterLockTimer) clearTimeout(filterLockTimer);
+      applyFilter(matchFn);
+      document
+        .querySelectorAll(".legend-item")
+        .forEach((li) => li.classList.toggle("locked", li === item));
+      filterLockTimer = setTimeout(() => {
+        clearFilter();
+        filterLockTimer = null;
+      }, 5000);
+    });
+  });
 }
 
 function renderGrid() {
@@ -330,8 +417,10 @@ function renderGrid() {
       .map((el) => {
         num += 1;
         return `
-          <button type="button" class="element tier-${el.tier}" style="--fam-color:${family.color}"
-            data-index="${ELEMENTS.indexOf(el)}" title="${el.name}">
+          <button type="button" class="element tier-${el.tier}"
+            style="--card-color:${langColor(el.lang)};--fam-color:${family.color}"
+            data-index="${ELEMENTS.indexOf(el)}" data-lang="${el.lang}" data-family="${el.family}"
+            title="${el.name}">
             <span class="num">${num}</span>
             <span class="symbol">${el.symbol}</span>
             <span class="ename">${el.name}</span>
@@ -348,32 +437,79 @@ function renderGrid() {
 
   grid.querySelectorAll(".element").forEach((btn) => {
     btn.addEventListener("click", () => showDetail(Number(btn.dataset.index), btn));
+
+    // hovering the currently-open card keeps the drawer pinned open
+    btn.addEventListener("mouseenter", () => {
+      if (Number(btn.dataset.index) === activeIndex) openDrawer();
+    });
+    btn.addEventListener("mouseleave", () => {
+      if (Number(btn.dataset.index) === activeIndex) scheduleDrawerClose();
+    });
+  });
+}
+
+// -- detail drawer -----------------------------------------------------
+// Pinned to the bottom of the window. Opens on selection, stays open
+// while the selected card (or the drawer itself) is hovered, and
+// otherwise auto-closes 5s after the pointer leaves.
+
+let activeIndex = null;
+let drawerCloseTimer = null;
+
+function openDrawer() {
+  if (drawerCloseTimer) {
+    clearTimeout(drawerCloseTimer);
+    drawerCloseTimer = null;
+  }
+  document.getElementById("detail").classList.add("open");
+}
+
+function scheduleDrawerClose() {
+  if (drawerCloseTimer) clearTimeout(drawerCloseTimer);
+  drawerCloseTimer = setTimeout(() => {
+    document.getElementById("detail").classList.remove("open");
+    drawerCloseTimer = null;
+  }, 5000);
+}
+
+function wireDrawer() {
+  const panel = document.getElementById("detail");
+  panel.addEventListener("mouseenter", () => {
+    if (activeIndex !== null) openDrawer();
+  });
+  panel.addEventListener("mouseleave", () => {
+    if (activeIndex !== null) scheduleDrawerClose();
   });
 }
 
 function showDetail(index, btn) {
+  activeIndex = index;
   document.querySelectorAll(".element.active").forEach((b) => b.classList.remove("active"));
   if (btn) btn.classList.add("active");
 
   const el = ELEMENTS[index];
   const family = FAMILIES.find((f) => f.id === el.family);
   const panel = document.getElementById("detail");
+  panel.style.setProperty("--card-color", langColor(el.lang));
   panel.style.setProperty("--fam-color", family.color);
   panel.innerHTML = `
-    <div class="detail-symbol">${el.symbol}</div>
-    <div class="detail-body">
-      <h2>${el.name} <span class="lang">${el.lang}</span></h2>
-      <p class="detail-blurb">${el.blurb}</p>
-      <p class="detail-text">${el.detail}</p>
-      <a class="detail-link" href="${githubUrl(el.repo)}" target="_blank" rel="noopener">
-        github.com/woodie/${el.repo} &rarr;
-      </a>
+    <div class="detail-inner">
+      <div class="detail-symbol">${el.symbol}</div>
+      <div class="detail-body">
+        <h2>${el.name} <span class="lang">${el.lang}</span></h2>
+        <p class="detail-blurb">${el.blurb}</p>
+        <p class="detail-text">${el.detail}</p>
+        <a class="detail-link" href="${githubUrl(el.repo)}" target="_blank" rel="noopener">
+          github.com/woodie/${el.repo} &rarr;
+        </a>
+      </div>
     </div>`;
-  if (btn) panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  openDrawer();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   renderLegend();
   renderGrid();
+  wireDrawer();
   showDetail(0, null);
 });
