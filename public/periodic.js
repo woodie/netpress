@@ -321,6 +321,17 @@ const ELEMENTS = [
   },
 ];
 
+// Picks a mobile grid column count that splits a family's tiles as evenly
+// as possible across rows, instead of always using a fixed 3 (which leaves
+// an awkward lone tile on its own row for any count where n mod 3 == 1,
+// e.g. 4 -> 3+1 or 7 -> 3+3+1). Capped at 3 columns since that's about as
+// wide as a single tile+label reads comfortably on a phone.
+function balancedCols(n, maxCols = 3) {
+  if (n <= maxCols) return n;
+  const rows = Math.ceil(n / maxCols);
+  return Math.ceil(n / rows);
+}
+
 function githubUrl(repo) {
   return `https://github.com/woodie/${repo}`;
 }
@@ -336,18 +347,39 @@ function langColor(lang) {
   return partial ? partial.color : fallback;
 }
 
+// Inserts a forced line-break after every `cols`-th item -- a zero-height,
+// flex-basis:100% spacer that only does anything under the mobile
+// @media block (see periodic.css's .legend-break), so desktop's single
+// wide line is unaffected. Unlike the periodic-table tiles, legend items
+// are variable-width text, so a fixed-column grid would either clip long
+// labels ("JavaScript") or leave odd gaps next to short ones ("Go") --
+// forcing a break inside the existing flex-wrap row keeps each item's
+// natural width while still balancing exactly `cols` per line.
+function withBreaks(items, cols) {
+  const out = [];
+  items.forEach((html, i) => {
+    out.push(html);
+    if ((i + 1) % cols === 0 && i !== items.length - 1) {
+      out.push('<span class="legend-break"></span>');
+    }
+  });
+  return out.join("");
+}
+
 function renderLegend() {
   const langLegend = document.getElementById("lang-legend");
-  langLegend.innerHTML = LANGUAGES.map(
+  const langItems = LANGUAGES.map(
     (l) =>
       `<span class="legend-item" data-key="${l.name}"><i style="background:${l.color};color:${l.color}"></i>${l.name}</span>`
-  ).join("");
+  );
+  langLegend.innerHTML = withBreaks(langItems, balancedCols(LANGUAGES.length, 4));
 
   const legend = document.getElementById("legend");
-  legend.innerHTML = FAMILIES.map(
+  const famItems = FAMILIES.map(
     (f) =>
       `<span class="legend-item" data-key="${f.id}"><i style="background:${f.color};color:${f.color}"></i>${f.name}</span>`
-  ).join("");
+  );
+  legend.innerHTML = withBreaks(famItems, balancedCols(FAMILIES.length, 4));
 
   wireLegend("lang-legend", (key) => (el) => langMatches(el.dataset.lang, key));
   wireLegend("legend", (key) => (el) => el.dataset.family === key);
@@ -427,10 +459,11 @@ function renderGrid() {
           </button>`;
       })
       .join("");
+    const mobileCols = balancedCols(items.length);
     return `
       <div class="family-block">
         <h3 style="color:${family.color}">${family.name}</h3>
-        <div class="family-row">${cells}</div>
+        <div class="family-row" style="--mobile-cols:${mobileCols}">${cells}</div>
       </div>`;
   }).join("");
   grid.innerHTML = blocks;
@@ -449,9 +482,10 @@ function renderGrid() {
 }
 
 // -- detail drawer -----------------------------------------------------
-// Pinned to the bottom of the window. Opens on selection, stays open
-// while the selected card (or the drawer itself) is hovered, and
-// otherwise auto-closes 5s after the pointer leaves.
+// Pinned to the bottom of the window. Opens on selection and always
+// auto-closes 5s later unless a real mouse is hovering the selected card
+// or the drawer itself, in which case hovering keeps re-arming the timer
+// instead (see showDetail()/wireDrawer()'s mouseenter/mouseleave pairs).
 
 let activeIndex = null;
 let drawerCloseTimer = null;
@@ -505,6 +539,12 @@ function showDetail(index, btn) {
       </div>
     </div>`;
   openDrawer();
+  // Arms the 5s auto-close unconditionally -- the mouseenter/mouseleave
+  // wiring below only re-arms/cancels it for a real mouse hovering the
+  // active tile or the drawer itself. On a touch device there's no
+  // mouseleave after a tap, so without this the timer never started at
+  // all and the drawer stayed open indefinitely.
+  scheduleDrawerClose();
 }
 
 document.addEventListener("DOMContentLoaded", () => {

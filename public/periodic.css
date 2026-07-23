@@ -37,6 +37,7 @@ header.top img.logo {
 }
 
 header.top .wordmark {
+  font-family: 'Open Sans', sans-serif;
   font-size: 28px;
   letter-spacing: 4px;
   font-weight: 700;
@@ -44,12 +45,14 @@ header.top .wordmark {
 }
 
 header.top .tagline {
+  font-family: 'Open Sans', sans-serif;
   font-size: 13px;
   color: #8b93a8;
   letter-spacing: 1px;
 }
 
 p.lede {
+  font-family: 'Open Sans', sans-serif;
   color: #a9b1c6;
   font-size: 14px;
   max-width: 640px;
@@ -60,6 +63,7 @@ p.lede {
 /* -- legend --------------------------------------------------------- */
 
 .legend-row {
+  font-family: 'Open Sans', sans-serif;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -77,6 +81,13 @@ p.lede {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+}
+
+/* Off by default (desktop's row is wide enough for every item on one
+   line) -- only forces a wrap under the mobile breakpoint below, where
+   periodic.js has already picked how many items belong on each line. */
+.legend-break {
+  display: none;
 }
 
 .legend-item i {
@@ -354,4 +365,38 @@ footer.bottom a:hover { color: #e6e9f2; }
   header.top .wordmark { font-size: 22px; }
   .detail-inner { flex-direction: column; }
   .detail-symbol { font-size: 40px; text-align: left; }
+
+  /* Grid instead of flex-wrap -- flex-wrap breaks rows by however many
+     92px tiles fit the viewport width (4 & 2 on most phones for six
+     tiles), which reads unevenly. --mobile-cols is set per family-row in
+     periodic.js (balancedCols()), picking whatever column count splits
+     that family's own tile count most evenly (3 for six, 2 for four) --
+     falls back to 3 if the inline custom property is ever missing.
+     Fixed-width (not 1fr) columns plus justify-content: center keeps
+     tiles the same natural size as desktop and centers the row, instead
+     of stretching tiles to fill the full row width -- 1fr made a
+     2-column row's tiles balloon well past a 3-column row's. */
+  .family-row {
+    display: grid;
+    grid-template-columns: repeat(var(--mobile-cols, 3), 92px);
+    justify-content: center;
+  }
+
+  .element,
+  .element:hover,
+  .element:focus-visible {
+    width: 92px;
+    height: 92px;
+    transform: none;
+  }
+
+  /* Forces exactly the column count periodic.js computed per legend row
+     (balancedCols) -- the row itself stays flex-wrap, so each item keeps
+     its own natural text width instead of being stretched into a grid
+     cell. */
+  .legend-break {
+    display: block;
+    flex-basis: 100%;
+    height: 0;
+  }
 }
