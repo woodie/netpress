@@ -169,17 +169,16 @@ const ELEMENTS = [
 
   // -- Humane -------------------------------------------------------------
   {
-    symbol: "Hs",
-    name: "humane-swift",
-    repo: "humane-swift",
+    symbol: "Hr",
+    name: "humane-ruby",
+    repo: "humane-ruby",
     family: "libraries",
     tier: "highlight",
-    lang: "Swift",
-    blurb: "Human-readable file sizes and relative dates, natively in Swift.",
+    lang: "Ruby",
+    blurb: "The Ruby port -- closest in spirit to the Rails helpers it copies.",
     detail:
-      "\"3 minutes ago\" instead of a timestamp, \"1.5 MB\" instead of a byte " +
-      "count -- modeled on Rails' ActionView helpers. The one the other " +
-      "three ports measure themselves against.",
+      "Ruby gem version of the same formatting helpers, for projects that " +
+      "want the ActionView-style wording without pulling in all of Rails.",
   },
   {
     symbol: "Hg",
@@ -192,16 +191,17 @@ const ELEMENTS = [
     detail: "Same human-readable sizes/dates idea, idiomatic Go this time.",
   },
   {
-    symbol: "Hr",
-    name: "humane-ruby",
-    repo: "humane-ruby",
+    symbol: "Hs",
+    name: "humane-swift",
+    repo: "humane-swift",
     family: "libraries",
     tier: "highlight",
-    lang: "Ruby",
-    blurb: "The Ruby port -- closest in spirit to the Rails helpers it copies.",
+    lang: "Swift",
+    blurb: "Human-readable file sizes and relative dates, natively in Swift.",
     detail:
-      "Ruby gem version of the same formatting helpers, for projects that " +
-      "want the ActionView-style wording without pulling in all of Rails.",
+      "\"3 minutes ago\" instead of a timestamp, \"1.5 MB\" instead of a byte " +
+      "count -- modeled on Rails' ActionView helpers. The one the other " +
+      "three ports measure themselves against.",
   },
   {
     symbol: "Hk",
@@ -218,6 +218,18 @@ const ELEMENTS = [
 
   // -- Infrastructure & Services ---------------------------------------
   {
+    symbol: "Sc ",
+    name: "scandalous",
+    repo: "scandalous",
+    family: "infra",
+    tier: "highlight",
+    lang: "Ruby",
+    blurb: "A mail agent and attachment server, for the same old scanners.",
+    detail:
+      "Takes what lambada scans and gets it into an inbox as an attachment " +
+      "-- the delivery half of the same scanner-rescue system.",
+  },
+  {
     symbol: "La",
     name: "lambada",
     repo: "lambada",
@@ -229,18 +241,6 @@ const ELEMENTS = [
       "Keeps aging scanner hardware useful by giving it a modern server " +
       "front end. First of a three-piece home system, alongside scandalous " +
       "and huck.",
-  },
-  {
-    symbol: "Sc ",
-    name: "scandalous",
-    repo: "scandalous",
-    family: "infra",
-    tier: "highlight",
-    lang: "Ruby",
-    blurb: "A mail agent and attachment server, for the same old scanners.",
-    detail:
-      "Takes what lambada scans and gets it into an inbox as an attachment " +
-      "-- the delivery half of the same scanner-rescue system.",
   },
   {
     symbol: "Nr",
@@ -463,9 +463,10 @@ function renderGrid() {
   grid.querySelectorAll(".element").forEach((btn) => {
     btn.addEventListener("click", () => showDetail(Number(btn.dataset.index), btn));
 
-    // hovering the currently-open card keeps the drawer pinned open
+    // hovering the currently-open card pauses the auto-close countdown --
+    // it never opens the drawer itself (see cancelDrawerClose() below).
     btn.addEventListener("mouseenter", () => {
-      if (Number(btn.dataset.index) === activeIndex) openDrawer();
+      if (Number(btn.dataset.index) === activeIndex) cancelDrawerClose();
     });
     btn.addEventListener("mouseleave", () => {
       if (Number(btn.dataset.index) === activeIndex) scheduleDrawerClose();
@@ -474,20 +475,25 @@ function renderGrid() {
 }
 
 // -- detail drawer -----------------------------------------------------
-// Pinned to the bottom of the window. Opens on selection and always
-// auto-closes 5s later unless a real mouse is hovering the selected card
-// or the drawer itself, in which case hovering keeps re-arming the timer
-// instead (see showDetail()/wireDrawer()'s mouseenter/mouseleave pairs).
+// Pinned to the bottom of the window. Opens only on click/selection
+// (showDetail()) and always auto-closes 5s later, unless a real mouse is
+// hovering the selected card or the drawer itself, in which case hovering
+// just pauses that countdown (cancelDrawerClose()) -- it never reopens an
+// already-closed drawer the way calling openDrawer() from a hover used to.
 
 let activeIndex = null;
 let drawerCloseTimer = null;
 
 function openDrawer() {
+  cancelDrawerClose();
+  document.getElementById("detail").classList.add("open");
+}
+
+function cancelDrawerClose() {
   if (drawerCloseTimer) {
     clearTimeout(drawerCloseTimer);
     drawerCloseTimer = null;
   }
-  document.getElementById("detail").classList.add("open");
 }
 
 function scheduleDrawerClose() {
@@ -501,7 +507,7 @@ function scheduleDrawerClose() {
 function wireDrawer() {
   const panel = document.getElementById("detail");
   panel.addEventListener("mouseenter", () => {
-    if (activeIndex !== null) openDrawer();
+    if (activeIndex !== null) cancelDrawerClose();
   });
   panel.addEventListener("mouseleave", () => {
     if (activeIndex !== null) scheduleDrawerClose();
