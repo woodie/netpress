@@ -29,20 +29,7 @@ const ELEMENTS = [
 
   // -- Apps -----------------------------------------------------------
   {
-    symbol: "Zk",
-    name: "Zouk",
-    repo: "zouk",
-    family: "apps",
-    tier: "highlight",
-    lang: "Swift",
-    blurb: "A signed, notarized macOS app -- brew install --cask zouk.",
-    detail:
-      "Built partly so a non-technical family member could just double-click " +
-      "it: real Developer ID signing and Apple notarization in CI, no " +
-      "Gatekeeper warning, no Xcode required on their end.",
-  },
-  {
-    symbol: "Hc",
+    symbol: "Hk",
     name: "Huck",
     repo: "huck",
     family: "apps",
@@ -53,6 +40,19 @@ const ELEMENTS = [
       "Pulls scanned pages down and files them locally -- the third piece " +
       "of the scan-server trio. Recently switched its own test output over " +
       "to kotidy.",
+  },
+  {
+    symbol: "Zs",
+    name: "Zouk",
+    repo: "zouk",
+    family: "apps",
+    tier: "highlight",
+    lang: "Swift",
+    blurb: "A signed, notarized macOS app -- brew install --cask zouk.",
+    detail:
+      "Built partly so a non-technical family member could just double-click " +
+      "it: real Developer ID signing and Apple notarization in CI, no " +
+      "Gatekeeper warning, no Xcode required on their end.",
   },
   {
     symbol: "Nk",
@@ -87,9 +87,9 @@ const ELEMENTS = [
       "KaiOS devices -- a third platform for the same one idea.",
   },
   {
-    symbol: "Cm",
+    symbol: "Nj",
     name: "Next Caltrain J2ME",
-    repo: "Caltrain-Schedule-MIDlet",
+    repo: "next-caltrain-j2me",
     family: "apps",
     tier: "standard",
     lang: "Java",
@@ -116,7 +116,7 @@ const ELEMENTS = [
       "newest of the family, and the one this whole approach is named after.",
   },
   {
-    symbol: "Xc",
+    symbol: "Xt",
     name: "xctidy",
     repo: "xctidy",
     family: "testing",
@@ -129,7 +129,7 @@ const ELEMENTS = [
       "readable test output as a Go one.",
   },
   {
-    symbol: "Go",
+    symbol: "Gt",
     name: "gorderly",
     repo: "gorderly",
     family: "testing",
@@ -155,7 +155,7 @@ const ELEMENTS = [
       "this family: tests should read like plain sentences.",
   },
   {
-    symbol: "Gk",
+    symbol: "Gf",
     name: "ginkgo-fd",
     repo: "ginkgo-fd",
     family: "testing",
@@ -218,7 +218,7 @@ const ELEMENTS = [
 
   // -- Infrastructure & Services ---------------------------------------
   {
-    symbol: "Lb",
+    symbol: "La",
     name: "lambada",
     repo: "lambada",
     family: "infra",
@@ -231,7 +231,7 @@ const ELEMENTS = [
       "and huck.",
   },
   {
-    symbol: "Sc",
+    symbol: "Sc ",
     name: "scandalous",
     repo: "scandalous",
     family: "infra",
@@ -282,7 +282,7 @@ const ELEMENTS = [
       "wrapper around Apple's WeatherKit API.",
   },
   {
-    symbol: "Cc",
+    symbol: "Cv",
     name: "common-cartridge-viewer",
     repo: "common-cartridge-viewer",
     family: "contrib",
@@ -307,12 +307,12 @@ const ELEMENTS = [
       "OAuth login, so it's not sitting open on the internet.",
   },
   {
-    symbol: "Gl",
+    symbol: "Gb",
     name: "geminabox-ldap",
     repo: "geminabox-ldap",
     family: "contrib",
     tier: "standard",
-    lang: "Ruby / Docker",
+    lang: "Docker",
     blurb: "A private gem server with LDAP/AD authentication, in a container.",
     detail:
       "Geminabox (\"a gem in a box\") wrapped in a Docker image that adds " +
@@ -374,15 +374,7 @@ function renderLegend() {
   );
   langLegend.innerHTML = withBreaks(langItems, balancedCols(LANGUAGES.length, 4));
 
-  const legend = document.getElementById("legend");
-  const famItems = FAMILIES.map(
-    (f) =>
-      `<span class="legend-item" data-key="${f.id}"><i style="background:${f.color};color:${f.color}"></i>${f.name}</span>`
-  );
-  legend.innerHTML = withBreaks(famItems, balancedCols(FAMILIES.length, 4));
-
   wireLegend("lang-legend", (key) => (el) => langMatches(el.dataset.lang, key));
-  wireLegend("legend", (key) => (el) => el.dataset.family === key);
 }
 
 // -- legend hover/click filtering ------------------------------------------

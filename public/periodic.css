@@ -67,13 +67,18 @@ p.lede {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 14px 22px;
-  margin-bottom: 14px;
+  /* No row-gap here -- a flex-basis:100% break (see .legend-break) becomes
+     its own zero-height line, and row-gap applies on both sides of it,
+     effectively doubling the gap for an in-row wrap versus the plain
+     margin-bottom below used between two different legend rows. The wrap
+     gap is set explicitly on .legend-break itself instead, so both kinds
+     of break read as the same spacing. */
+  gap: 0 22px;
   font-size: 12px;
   color: #b7bfd4;
 }
 
-#legend {
+#lang-legend {
   margin-bottom: 30px;
 }
 
@@ -393,10 +398,13 @@ footer.bottom a:hover { color: #e6e9f2; }
   /* Forces exactly the column count periodic.js computed per legend row
      (balancedCols) -- the row itself stays flex-wrap, so each item keeps
      its own natural text width instead of being stretched into a grid
-     cell. */
+     cell. margin-top matches .legend-row's own margin-bottom exactly, so
+     wrapping within a row and the gap between two different legend rows
+     read as the same spacing instead of the wrap looking bigger. */
   .legend-break {
     display: block;
     flex-basis: 100%;
     height: 0;
+    margin-top: 14px;
   }
 }
