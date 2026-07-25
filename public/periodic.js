@@ -29,7 +29,7 @@ const ELEMENTS = [
 
   // -- Apps -----------------------------------------------------------
   {
-    symbol: "Hk",
+    symbol: "Rk",
     name: "Huck",
     repo: "huck",
     family: "apps",
@@ -42,7 +42,7 @@ const ELEMENTS = [
       "to kotidy.",
   },
   {
-    symbol: "Zs",
+    symbol: "Rs",
     name: "Zouk",
     repo: "zouk",
     family: "apps",
