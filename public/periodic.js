@@ -155,6 +155,19 @@ const ELEMENTS = [
       "this family: tests should read like plain sentences.",
   },
   {
+    symbol: "Kw",
+    name: "kwick",
+    repo: "kwick",
+    family: "testing",
+    tier: "highlight",
+    lang: "Kotlin",
+    blurb: "Now Kotlin can have justBeforeEach like Swift.",
+    detail:
+      "Separate what varies (declared via ordinary beforeEach in each context) " +
+      "from the action under test (declared once, in the parent). Writer tests " +
+      "with easy to access nested context.",
+  },
+  {
     symbol: "Gf",
     name: "ginkgo-fd",
     repo: "ginkgo-fd",
