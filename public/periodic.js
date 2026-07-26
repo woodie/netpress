@@ -37,9 +37,9 @@ const ELEMENTS = [
     lang: "Kotlin",
     blurb: "The desktop client for the lambada/scandalous scan system.",
     detail:
-      "Pulls scanned pages down and files them locally -- the third piece " +
-      "of the scan-server trio. Recently switched its own test output over " +
-      "to kotidy.",
+      "Pulls scanned pages down and files them locally -- one piece of " +
+      "the scan-server trio, alongside lambada and scandalous. Uses kotidy " +
+      "for its own test output.",
   },
   {
     symbol: "Rs",
@@ -112,8 +112,7 @@ const ELEMENTS = [
     detail:
       "Hooks Gradle's own TestListener API directly and renders a dense, " +
       "deduped describe/context/it tree -- four switchable styles " +
-      "(classic/fd/fs/fv). Published to the Gradle Plugin Portal. The " +
-      "newest of the family, and the one this whole approach is named after.",
+      "(classic/fd/fs/fv). Published to the Gradle Plugin Portal.",
   },
   {
     symbol: "Xt",
@@ -122,11 +121,11 @@ const ELEMENTS = [
     family: "testing",
     tier: "highlight",
     lang: "Swift",
-    blurb: "gorderly's idea, ported to xcodebuild output.",
+    blurb: "RSpec-style test output for Xcode, via xcodebuild.",
     detail:
-      "Reformats raw xcodebuild test output into the same nested, " +
-      "RSpec-style tree as gorderly -- so a Swift project gets the same " +
-      "readable test output as a Go one.",
+      "Reformats raw xcodebuild test output into a nested, RSpec-style " +
+      "describe/context/it tree, so Swift test output reads like " +
+      "documentation instead of a wall of PASS/FAIL lines.",
   },
   {
     symbol: "Gt",
@@ -135,11 +134,11 @@ const ELEMENTS = [
     family: "testing",
     tier: "highlight",
     lang: "Go",
-    blurb: "The original -- RSpec-style output for go test.",
+    blurb: "RSpec-style output for go test, no external framework required.",
     detail:
-      "Where the whole family started: nested, RSpec-doc-style output for " +
-      "Go's own go test, with no external test framework required. " +
-      "xctidy and kotidy both follow its lead.",
+      "Turns go test's own console output into a nested, RSpec-doc-style " +
+      "describe/context/it tree, so Go tests read like documentation " +
+      "instead of a flat pass/fail list.",
   },
   {
     symbol: "Ex",
@@ -164,8 +163,8 @@ const ELEMENTS = [
     blurb: "Now Kotlin can have justBeforeEach like Swift.",
     detail:
       "Separate what varies (declared via ordinary beforeEach in each context) " +
-      "from the action under test (declared once, in the parent). Writer tests " +
-      "with easy to access nested context.",
+      "from the action under test (declared once, in the parent). Write tests " +
+      "with easy access to nested context.",
   },
   {
     symbol: "Gf",
@@ -188,10 +187,11 @@ const ELEMENTS = [
     family: "libraries",
     tier: "highlight",
     lang: "Ruby",
-    blurb: "The Ruby port -- closest in spirit to the Rails helpers it copies.",
+    blurb: "Human-readable file sizes and relative dates, packaged as a Ruby gem.",
     detail:
-      "Ruby gem version of the same formatting helpers, for projects that " +
-      "want the ActionView-style wording without pulling in all of Rails.",
+      "\"3 minutes ago\" instead of a timestamp, \"1.5 MB\" instead of a byte " +
+      "count -- the same ActionView-style wording Rails apps already expect, " +
+      "without pulling in all of Rails.",
   },
   {
     symbol: "Hg",
@@ -200,8 +200,8 @@ const ELEMENTS = [
     family: "libraries",
     tier: "highlight",
     lang: "Go",
-    blurb: "The Go port of humane-swift's formatting helpers.",
-    detail: "Same human-readable sizes/dates idea, idiomatic Go this time.",
+    blurb: "Human-readable file sizes and relative dates, in idiomatic Go.",
+    detail: "Same human-readable sizes/dates idea, in idiomatic Go.",
   },
   {
     symbol: "Hs",
@@ -213,8 +213,7 @@ const ELEMENTS = [
     blurb: "Human-readable file sizes and relative dates, natively in Swift.",
     detail:
       "\"3 minutes ago\" instead of a timestamp, \"1.5 MB\" instead of a byte " +
-      "count -- modeled on Rails' ActionView helpers. The one the other " +
-      "three ports measure themselves against.",
+      "count -- modeled on Rails' ActionView helpers.",
   },
   {
     symbol: "Hk",
@@ -223,10 +222,11 @@ const ELEMENTS = [
     family: "libraries",
     tier: "highlight",
     lang: "Kotlin",
-    blurb: "The Kotlin port, and kotidy's own test subject.",
+    blurb: "Human-readable file sizes and relative dates, in Kotlin.",
     detail:
-      "Fourth language, same idea. Also doubles as the real-world proving " +
-      "ground for kotidy's own describe/context/it tree renderer.",
+      "Same human-readable sizes/dates idea, in Kotlin. Also doubles as " +
+      "the real-world proving ground for kotidy's own describe/context/it " +
+      "tree renderer.",
   },
 
   // -- Infrastructure & Services ---------------------------------------
@@ -252,8 +252,8 @@ const ELEMENTS = [
     blurb: "A scan server for old scanners.",
     detail:
       "Keeps aging scanner hardware useful by giving it a modern server " +
-      "front end. First of a three-piece home system, alongside scandalous " +
-      "and huck.",
+      "front end. One piece of a three-piece home scan system, alongside " +
+      "scandalous and huck.",
   },
   {
     symbol: "Nr",
@@ -272,13 +272,11 @@ const ELEMENTS = [
     family: "infra",
     tier: "highlight",
     lang: "Java",
-    blurb: "Started solo at Google -- with other contributors.",
+    blurb: "A starter framework for building Mirah apps on Google App Engine.",
     detail:
-      "This is s starter project for Mirah on App Engine. " +
-      "Dubious provide a way to build apps in Mirah, with conventions " +
-      "familiar to Rails developers. Mirah has no runtime dependencies, " +
-      "everything is compiled ahead-of-time. Mirah apps have none of the " +
-      "initialization costs associated with JRuby.",
+      "Rails-familiar conventions for building apps in Mirah, which " +
+      "compiles ahead-of-time with no runtime dependencies -- Mirah apps " +
+      "skip the JRuby-style initialization cost entirely.",
   },
 
   // -- Contributions -----------------------------------------------------
