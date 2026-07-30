@@ -102,6 +102,32 @@ const ELEMENTS = [
 
   // -- Testing & Dev Tools ---------------------------------------------
   {
+    symbol: "Kw",
+    name: "kwick",
+    repo: "kwick",
+    family: "testing",
+    tier: "highlight",
+    lang: "Kotlin",
+    blurb: "Now Kotlin can have justBeforeEach like Swift.",
+    detail:
+      "Separate what varies (declared via ordinary beforeEach in each context) " +
+      "from the action under test (declared once, in the parent). Write tests " +
+      "with easy access to nested context.",
+  },
+  {
+    symbol: "Ex",
+    name: "expect",
+    repo: "expect",
+    family: "testing",
+    tier: "highlight",
+    lang: "Go",
+    blurb: "A generics-based matcher library for Go tests.",
+    detail:
+      "Type-safe assertion matchers for Go, built on generics rather than " +
+      "reflection or interface{} -- the same instinct behind the rest of " +
+      "this family: tests should read like plain sentences.",
+  },
+  {
     symbol: "Kt",
     name: "kotidy",
     repo: "kotidy",
@@ -153,32 +179,6 @@ const ELEMENTS = [
       "Turns plain go test -v's own console output into a nested " +
       "describe/context/it tree -- four switchable styles (classic/fd/fs/fv). " +
       "For Ginkgo-based suites specifically, see gomeleon instead.",
-  },
-  {
-    symbol: "Ex",
-    name: "expect",
-    repo: "expect",
-    family: "testing",
-    tier: "highlight",
-    lang: "Go",
-    blurb: "A generics-based matcher library for Go tests.",
-    detail:
-      "Type-safe assertion matchers for Go, built on generics rather than " +
-      "reflection or interface{} -- the same instinct behind the rest of " +
-      "this family: tests should read like plain sentences.",
-  },
-  {
-    symbol: "Kw",
-    name: "kwick",
-    repo: "kwick",
-    family: "testing",
-    tier: "highlight",
-    lang: "Kotlin",
-    blurb: "Now Kotlin can have justBeforeEach like Swift.",
-    detail:
-      "Separate what varies (declared via ordinary beforeEach in each context) " +
-      "from the action under test (declared once, in the parent). Write tests " +
-      "with easy access to nested context.",
   },
 
   // -- Humane -------------------------------------------------------------
