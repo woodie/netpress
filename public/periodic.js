@@ -128,6 +128,20 @@ const ELEMENTS = [
       "and gorderly's exact flag surface.",
   },
   {
+    symbol: "Gm",
+    name: "gomeleon",
+    repo: "gomeleon",
+    family: "testing",
+    tier: "highlight",
+    lang: "Go",
+    blurb: "RSpec-style output for Ginkgo, Go's BDD test framework.",
+    detail:
+      "Wraps the real ginkgo CLI, captures its JSON report, and re-renders it " +
+      "as a describe/context/it tree -- four switchable styles (classic/fd/fs/fv), " +
+      "same architecture as gorderly. For plain go test suites (no Ginkgo), " +
+      "see gorderly instead.",
+  },
+  {
     symbol: "Gt",
     name: "gorderly",
     repo: "gorderly",
@@ -165,20 +179,6 @@ const ELEMENTS = [
       "Separate what varies (declared via ordinary beforeEach in each context) " +
       "from the action under test (declared once, in the parent). Write tests " +
       "with easy access to nested context.",
-  },
-  {
-    symbol: "Gm",
-    name: "gomeleon",
-    repo: "gomeleon",
-    family: "testing",
-    tier: "highlight",
-    lang: "Go",
-    blurb: "RSpec-style output for Ginkgo, Go's BDD test framework.",
-    detail:
-      "Wraps the real ginkgo CLI, captures its JSON report, and re-renders it " +
-      "as a describe/context/it tree -- four switchable styles (classic/fd/fs/fv), " +
-      "same architecture as gorderly. For plain go test suites (no Ginkgo), " +
-      "see gorderly instead.",
   },
 
   // -- Humane -------------------------------------------------------------
