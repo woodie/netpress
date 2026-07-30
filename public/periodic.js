@@ -123,9 +123,9 @@ const ELEMENTS = [
     lang: "Swift",
     blurb: "RSpec-style test output for Xcode, via xcodebuild.",
     detail:
-      "Reformats raw xcodebuild test output into a nested, RSpec-style " +
-      "describe/context/it tree, so Swift test output reads like " +
-      "documentation instead of a wall of PASS/FAIL lines.",
+      "Reformats raw xcodebuild test output into a nested, describe/context/it " +
+      "tree -- four switchable styles (classic/fd/fs/fv), matching kotidy's " +
+      "and gorderly's exact flag surface.",
   },
   {
     symbol: "Gt",
@@ -136,9 +136,9 @@ const ELEMENTS = [
     lang: "Go",
     blurb: "RSpec-style output for go test, no external framework required.",
     detail:
-      "Turns go test's own console output into a nested, RSpec-doc-style " +
-      "describe/context/it tree, so Go tests read like documentation " +
-      "instead of a flat pass/fail list.",
+      "Turns plain go test -v's own console output into a nested " +
+      "describe/context/it tree -- four switchable styles (classic/fd/fs/fv). " +
+      "For Ginkgo-based suites specifically, see gomeleon instead.",
   },
   {
     symbol: "Ex",
@@ -167,16 +167,18 @@ const ELEMENTS = [
       "with easy access to nested context.",
   },
   {
-    symbol: "Gf",
-    name: "ginkgo-fd",
-    repo: "ginkgo-fd",
+    symbol: "Gm",
+    name: "gomeleon",
+    repo: "gomeleon",
     family: "testing",
     tier: "highlight",
     lang: "Go",
-    blurb: "A better output format for Ginkgo, Go's BDD test framework.",
+    blurb: "RSpec-style output for Ginkgo, Go's BDD test framework.",
     detail:
-      "Ginkgo already does BDD-style specs for Go; this reformats its own " +
-      "console output to read more like RSpec's -fd documentation format.",
+      "Wraps the real ginkgo CLI, captures its JSON report, and re-renders it " +
+      "as a describe/context/it tree -- four switchable styles (classic/fd/fs/fv), " +
+      "same architecture as gorderly. For plain go test suites (no Ginkgo), " +
+      "see gorderly instead.",
   },
 
   // -- Humane -------------------------------------------------------------
