@@ -154,6 +154,19 @@ const ELEMENTS = [
       "and gorderly's exact flag surface.",
   },
   {
+    symbol: "Gt",
+    name: "gorderly",
+    repo: "gorderly",
+    family: "testing",
+    tier: "highlight",
+    lang: "Go",
+    blurb: "RSpec-style output for go test, no external framework required.",
+    detail:
+      "Turns plain go test -v's own console output into a nested " +
+      "describe/context/it tree -- four switchable styles (classic/fd/fs/fv). " +
+      "For Ginkgo-based suites specifically, see gomeleon instead.",
+  },
+  {
     symbol: "Gm",
     name: "gomeleon",
     repo: "gomeleon",
@@ -166,19 +179,6 @@ const ELEMENTS = [
       "as a describe/context/it tree -- four switchable styles (classic/fd/fs/fv), " +
       "same architecture as gorderly. For plain go test suites (no Ginkgo), " +
       "see gorderly instead.",
-  },
-  {
-    symbol: "Gt",
-    name: "gorderly",
-    repo: "gorderly",
-    family: "testing",
-    tier: "highlight",
-    lang: "Go",
-    blurb: "RSpec-style output for go test, no external framework required.",
-    detail:
-      "Turns plain go test -v's own console output into a nested " +
-      "describe/context/it tree -- four switchable styles (classic/fd/fs/fv). " +
-      "For Ginkgo-based suites specifically, see gomeleon instead.",
   },
 
   // -- Humane -------------------------------------------------------------
