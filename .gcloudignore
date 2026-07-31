@@ -17,3 +17,6 @@
 __pycache__/
 # Ignored by the build system
 /setup.cfg
+
+# Working docs (blog/talk outlines, etc.) -- not part of the deployed app
+/talks/
