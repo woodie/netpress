@@ -40,6 +40,20 @@ other.
 - Scoping variables gotcha: `lateinit var` for reference types vs. a
   placeholder `var` for primitives/inline value classes -- a real Kotlin-
   specific wrinkle worth calling out since it trips people up.
+- This isn't a hypothetical gap: [kotest/kotest#952](https://github.com/kotest/kotest/issues/952)
+  (filed against KotlinTest, Kotest's predecessor, back in 2019) asked for
+  exactly this -- a scoped `beforeEachTest` closure, explicitly citing
+  Ginkgo's `JustBeforeEach` as the model. It's closed with no PR six years
+  later. The filer's own sketch (a `BaseTest` subclass collecting closures
+  via an overridden `beforeTest`, requiring `IsolationMode.InstancePerLeaf`)
+  raised the exact questions a real implementation has to answer --
+  whether subclassing `DescribeSpec` is safe with more complex setups,
+  listeners, and extensions, and whether there are threading gotchas --
+  which is precisely what `JustBeforeEachExtension` had to get right as a
+  real, working extension rather than a proposal. Worth a line wondering
+  in print whether this could ever land upstream in `DescribeSpec` itself
+  (making `kwick` unnecessary -- a fine outcome) -- the issue being closed,
+  unresolved, since 2019 suggests it isn't coming soon.
 
 ## 3. `kotidy`: RSpec-style output for Kotest, via a real Gradle plugin
 
