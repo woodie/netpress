@@ -163,22 +163,20 @@ const ELEMENTS = [
     blurb: "RSpec-style output for go test, no external framework required.",
     detail:
       "Turns plain go test -v's own console output into a nested " +
-      "describe/context/it tree -- four switchable styles (classic/fd/fs/fv). " +
-      "For Ginkgo-based suites specifically, see gomeleon instead.",
+      "describe/context/it tree -- four switchable styles (classic/fd/fs/fv).",
   },
   {
-    symbol: "Gm",
-    name: "gomeleon",
-    repo: "gomeleon",
+    symbol: "Rt",
+    name: "rutidy",
+    repo: "rutidy",
     family: "testing",
     tier: "highlight",
-    lang: "Go",
-    blurb: "RSpec-style output for Ginkgo, Go's BDD test framework.",
+    lang: "Ruby",
+    blurb: "RSpec-style output for RSpec itself, via a real formatter.",
     detail:
-      "Wraps the real ginkgo CLI, captures its JSON report, and re-renders it " +
-      "as a describe/context/it tree -- four switchable styles (classic/fd/fs/fv), " +
-      "same architecture as gorderly. For plain go test suites (no Ginkgo), " +
-      "see gorderly instead.",
+      "Hooks RSpec's own example_group notifications to build a real " +
+      "describe/context/it tree -- four switchable styles (classic/fd/fs/fv), " +
+      "same architecture as gorderly and kotidy.",
   },
 
   // -- Humane -------------------------------------------------------------
