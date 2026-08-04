@@ -8,13 +8,12 @@
 // landed too dark (below ~32% lightness) got lifted to a legible mid-tone.
 // source hexes: https://github.com/ozh/github-colors (mirrors linguist's languages.yml)
 const LANGUAGES = [
-  { name: "Ruby", color: "#fb7185" },
   { name: "Go", color: "#22d3ee" },
-  { name: "Swift", color: "#ff6e55" },
   { name: "Kotlin", color: "#8b5de1" },
-  { name: "JavaScript", color: "#ffb700" },
   { name: "Java", color: "#bd7f26" },
-  { name: "Docker", color: "#a5bac1" },
+  { name: "JavaScript", color: "#ffb700" },
+  { name: "Ruby", color: "#fb7185" },
+  { name: "Swift", color: "#ff6e55" },
 ];
 
 const FAMILIES = [
@@ -261,7 +260,7 @@ const ELEMENTS = [
     repo: "nanoserver-ruby",
     family: "infra",
     tier: "standard",
-    lang: "Docker",
+    lang: "Ruby",
     blurb: "Ruby, packaged on the much smaller Nano Server base image.",
     detail: "Same idea as windowsservercore-ruby, on Microsoft's slimmer nanoserver base.",
   },
@@ -323,7 +322,7 @@ const ELEMENTS = [
     repo: "geminabox-ldap",
     family: "contrib",
     tier: "standard",
-    lang: "Docker",
+    lang: "Ruby",
     blurb: "A private gem server with LDAP/AD authentication, in a container.",
     detail:
       "Geminabox (\"a gem in a box\") wrapped in a Docker image that adds " +
