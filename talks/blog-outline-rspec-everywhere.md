@@ -46,6 +46,13 @@ re-implemented (not just approximated) in Kotlin, Go, and Swift.
 - Callout: notice the shape repeats -- one structure library, one matcher
   library (or none needed, Kotlin/Swift), one renderer that turns raw
   runner output into a real nested tree. That repetition *is* the thesis.
+- A second, smaller repetition worth naming: Ginkgo's `JustBeforeEach`
+  (a hook that runs after every `BeforeEach` at every level, right before
+  the test) turns out to be a gap in more than one ecosystem. Kotest's
+  `DescribeSpec` never had it -- `kwick` adds it as an extension. Upstream
+  `sclevine/spec` never had it either -- `woodie/spec` adds it directly,
+  forking rather than extending. Two different mechanisms, same missing
+  piece, same source of truth (Ginkgo) cited in both.
 
 ## 3. Where the translation is faithful vs. where it isn't
 

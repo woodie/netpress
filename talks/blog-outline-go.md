@@ -23,7 +23,11 @@ requiring the other, and neither requiring Ginkgo.
   reflection, plus a global fail-handler/wrapper. Generics remove that
   need entirely.
 - Frame `expect`+`gorderly` as "what Gomega would look like if designed
-  today, on top of `t.Run` instead of instead of it."
+  today, on top of `t.Run` instead of it."
+- Frame `spec` (section 4) the same way against Ginkgo specifically:
+  Ginkgo has `JustBeforeEach` built in, upstream `sclevine/spec` never
+  did -- `woodie/spec` closes that gap directly rather than working
+  around it.
 
 ## 2. `expect`: generics-based matchers, dependency-free
 
@@ -58,9 +62,12 @@ requiring the other, and neither requiring Ginkgo.
 
 ## 4. Using them together (plus `spec` for structure)
 
-- `spec` (`sclevine/spec`) gives `describe`/`context`/`it` and
-  `before`/`after` on top of `t.Run` -- the structural piece neither
-  `expect` nor `gorderly` provides on its own.
+- `spec` (`woodie/spec`, a fork of upstream `sclevine/spec`) gives
+  `describe`/`context`/`it` and `BeforeEach`/`AfterEach`/`JustBeforeEach`
+  on top of `t.Run` -- the structural piece neither `expect` nor
+  `gorderly` provides on its own. Worth a line on why the fork exists:
+  naming consistency with Ginkgo/RSpec/Jest/Kotest, and a real
+  `JustBeforeEach` upstream never had.
 - One short, complete example: a full suite using all three, piped through
   `gorderly -fd`, rendering as a real tree.
 - Each piece is independent and swappable -- `expect` works in
@@ -69,6 +76,7 @@ requiring the other, and neither requiring Ginkgo.
 
 ## 5. Try it
 
-- Links: `expect`/`gorderly`/`sclevine/spec` repos, install snippets.
+- Links: `expect`/`gorderly`/`woodie/spec` repos, install snippets
+  (`go get github.com/woodie/spec` -- no `replace` directive needed).
 - CTA: works with whatever `testing`-based suite you already have; nothing
   to migrate off of first.
