@@ -18,10 +18,13 @@ requiring the other, and neither requiring Ginkgo.
 - Ginkgo owns its own execution and reporting -- a suite built on it shows
   up as one flat wrapper test under `go test -v`, with no real subtest
   tree for anything else to parse.
-- The pre-generics reason Gomega/testify look the way they do: no
-  type-safe `Expect(x).To(Equal(y))` without leaning on `interface{}` and
-  reflection, plus a global fail-handler/wrapper. Generics remove that
-  need entirely.
+- The pre-generics reason Gomega/testify lean on `interface{}` and
+  reflection: no type-safe `Expect(x).To(Equal(y))` without it. Generics
+  remove that need entirely -- separately, `expect` also skips Gomega's
+  per-test wrapper (`NewWithT(t)`) by threading `t` straight into every
+  call; that's a deliberate `expect` design choice, not something
+  generics force either way (Gomega's own standalone mode already works
+  without Ginkgo, wrapper and all).
 - Frame `expect`+`gorderly` as "what Gomega would look like if designed
   today, on top of `t.Run` instead of it."
 - Frame `spec` (section 4) the same way against Ginkgo specifically:
