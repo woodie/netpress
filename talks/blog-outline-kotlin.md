@@ -29,9 +29,17 @@ other.
   `beforeEach` at every level, immediately before the `it` -- so what
   varies (inputs) and the action under test can live at different nesting
   levels instead of being duplicated per `context`.
-- Standalone example: the `Calculator#divideBy` walkthrough from the
-  README (numerator/denominator/`justBeforeEach`), unchanged, self-
-  contained, no other project's domain code.
+- Real example, not a hypothetical: `next-caltrain-kotlin`'s
+  `GoodTimesSpec.kt`, `"when 'today' is fixed via GoodTimes.seeded"`.
+  Show the duplicated shape first -- each of three sibling `context`s
+  (Friday/Saturday/Sunday) with its own `beforeEach { gt =
+  GoodTimes.seeded(dotw = 5) }` -- then the actual, shipped rewrite:
+  `var dotw = 0` plus one `justBeforeEach { gt = GoodTimes.seeded(dotw =
+  dotw) }` at the parent, each sibling now only setting `beforeEach {
+  dotw = 5 }`. Pulled from real commits (`9fe5e6d`, `f5250b6`), not
+  invented for the post -- and note in passing that `seeded(dotw, mins)`
+  is the clean factory that replaced an earlier `debugOverrideDotw`
+  global, so nothing here needs an `afterEach` reset.
 - Setup: registering `JustBeforeEachExtension` on `ProjectConfig` --
   and the gotcha that a forgotten registration is a silent no-op.
 - The `runCatching`-outcome convention: hoisting an action that might throw
