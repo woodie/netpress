@@ -1,0 +1,27 @@
+{
+  "name": "netpress",
+  "private": true,
+  "description": "The Netpress Homepage",
+  "scripts": {
+    "build": "esbuild src/periodic.js --minify --outfile=public/periodic.js",
+    "lint": "standard --fix src/*.js",
+    "test": "vitest run --passWithNoTests",
+    "check": "standard src/*.js && vitest run --passWithNoTests --reporter=dot",
+    "server": "./server.sh",
+    "deploy": "./deploy.sh"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0",
+    "standard": "^17.1.2",
+    "vitest": "^4.1.10"
+  },
+  "standard": {
+    "env": [
+      "browser"
+    ]
+  },
+  "allowScripts": {
+    "esbuild@0.24.2": true,
+    "fsevents@2.3.3": true
+  }
+}
