@@ -1,8 +1,12 @@
 #!/bin/sh
 
-# gcloud info | grep Installation\ Root
-# Installation Root: [/Applications/Utilities/google-cloud-sdk]
+# app.yaml maps every URL straight to a file in public/ (static_files
+# handlers, no dynamic backend) -- so a plain static file server serves
+# it identically to how App Engine would. This used to shell out to the
+# Cloud SDK's dev_appserver.py (the App Engine local emulator), which
+# only ever mattered for apps with real dynamic handlers; for a static
+# site it was doing nothing dev_appserver-specific, just serving files,
+# and it stopped working once dev_appserver.py's Cloud SDK component
+# went missing (per Woodie, 2026-09-23).
 
-export CLOUD_SDK_ROOT=/Applications/Utilities/google-cloud-sdk
-export APPLICATION_ID=dev~None
-python3 $CLOUD_SDK_ROOT/bin/dev_appserver.py --host=0.0.0.0 --enable_host_checking=no .
+python3 -m http.server 8000 --directory public
