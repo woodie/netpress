@@ -34,11 +34,11 @@ export const ELEMENTS = [
     family: 'apps',
     tier: 'highlight',
     lang: 'Kotlin',
-    blurb: 'The desktop client for the lambada/scandalous scan system.',
+    blurb: 'A Windows and macOS desktop client for scan servers.',
     detail:
-      'Pulls scanned pages down and files them locally -- one piece of ' +
-      'the scan-server trio, alongside lambada and scandalous. Uses kotidy ' +
-      'for its own test output.'
+      'The Kotlin partner to zouk, with a Windows installer and a signed, ' +
+      'notarized macOS package. A real-world check on humane-kotlin; its ' +
+      'tests drove kwick and use kotidy for their output.'
   },
   {
     symbol: 'Rs',
@@ -47,11 +47,12 @@ export const ELEMENTS = [
     family: 'apps',
     tier: 'highlight',
     lang: 'Swift',
-    blurb: 'A signed, notarized macOS app -- brew install --cask zouk.',
+    blurb: 'A macOS desktop client for scan servers.',
     detail:
-      'Built partly so a non-technical family member could just double-click ' +
-      'it: real Developer ID signing and Apple notarization in CI, no ' +
-      'Gatekeeper warning, no Xcode required on their end.'
+      'The Swift partner to huck. A signed, notarized installer (brew ' +
+      'install --cask zouk), so a non-technical family member can just ' +
+      'double-click it. ' +
+      'A real-world check on humane-swift, with test output from xctidy.'
   },
   {
     symbol: 'Nk',
@@ -146,7 +147,7 @@ export const ELEMENTS = [
     family: 'testing',
     tier: 'highlight',
     lang: 'Swift',
-    blurb: 'RSpec-style test output for Xcode, via xcodebuild.',
+    blurb: 'RSpec-style test output for Swift, via xcodebuild or swift test.',
     detail:
       'Reformats raw xcodebuild test output into a nested, describe/context/it ' +
       "tree -- four switchable styles (classic/fd/fs/fv), matching kotidy's " +
@@ -230,16 +231,17 @@ export const ELEMENTS = [
 
   // -- Infrastructure & Services ---------------------------------------
   {
-    symbol: 'Sc ',
+    symbol: 'Sc',
     name: 'scandalous',
     repo: 'scandalous',
     family: 'infra',
     tier: 'highlight',
     lang: 'Ruby',
-    blurb: 'A mail agent and attachment server, for the same old scanners.',
+    blurb: 'A scan server for old scanners, in Ruby.',
     detail:
-      'Takes what lambada scans and gets it into an inbox as an attachment ' +
-      '-- the delivery half of the same scanner-rescue system.'
+      'Hand-crafted in Ruby to do a simple task, and now where web ideas ' +
+      'get tried first before moving to its partner, lambada. A ' +
+      'real-world check on humane-ruby, with test output from rutidy.'
   },
   {
     symbol: 'La',
@@ -248,11 +250,11 @@ export const ELEMENTS = [
     family: 'infra',
     tier: 'highlight',
     lang: 'Go',
-    blurb: 'A scan server for old scanners.',
+    blurb: 'A scan server for old scanners, in Go.',
     detail:
-      'Keeps aging scanner hardware useful by giving it a modern server ' +
-      'front end. One piece of a three-piece home scan system, alongside ' +
-      'scandalous and huck.'
+      'Embraces web dev standards from Ruby, by way of its partner ' +
+      'scandalous. A real-world check on humane-go, with tests written ' +
+      'in expect.'
   },
   {
     symbol: 'Nr',
@@ -262,7 +264,7 @@ export const ELEMENTS = [
     tier: 'standard',
     lang: 'Ruby',
     blurb: 'Ruby, packaged on the much smaller Nano Server base image.',
-    detail: "Same idea as windowsservercore-ruby, on Microsoft's slimmer nanoserver base."
+    detail: "Ruby in a Windows container, on Microsoft's slimmer Nano Server base image."
   },
   {
     symbol: 'Db',
