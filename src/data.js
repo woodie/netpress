@@ -187,11 +187,11 @@ export const ELEMENTS = [
     family: 'libraries',
     tier: 'highlight',
     lang: 'Ruby',
-    blurb: 'Human-readable file sizes and relative dates, packaged as a Ruby gem.',
+    blurb: 'Finder-style file sizes and Rails-style relative dates, as a Ruby gem.',
     detail:
-      '"3 minutes ago" instead of a timestamp, "1.5 MB" instead of a byte ' +
-      'count -- the same ActionView-style wording Rails apps already expect, ' +
-      'without pulling in all of Rails.'
+      'The same ActionView wording Rails apps already use, without pulling ' +
+      'in all of Rails, plus file sizes that match Finder. Used by ' +
+      'scandalous, with test output from rutidy.'
   },
   {
     symbol: 'Hg',
@@ -200,8 +200,11 @@ export const ELEMENTS = [
     family: 'libraries',
     tier: 'highlight',
     lang: 'Go',
-    blurb: 'Human-readable file sizes and relative dates, in idiomatic Go.',
-    detail: 'Same human-readable sizes/dates idea, in idiomatic Go.'
+    blurb: 'Finder-style file sizes and Rails-style relative dates, in Go.',
+    detail:
+      'Ports ByteCountFormatter\'s rules, checked against real Finder output, ' +
+      'plus ActionView\'s relative-date wording, past or future. Used by ' +
+      'lambada, with tests written in expect.'
   },
   {
     symbol: 'Hs',
@@ -210,10 +213,13 @@ export const ELEMENTS = [
     family: 'libraries',
     tier: 'highlight',
     lang: 'Swift',
-    blurb: 'Human-readable file sizes and relative dates, natively in Swift.',
+    blurb: 'File sizes and relative dates the way macOS shows them, in Swift.',
     detail:
-      '"3 minutes ago" instead of a timestamp, "1.5 MB" instead of a byte ' +
-      "count -- modeled on Rails' ActionView helpers."
+      'Sizes come straight from Apple\'s ByteCountFormatter, so they match ' +
+      'Finder exactly ("4.1 MB"). Relative dates use Rails ActionView\'s ' +
+      'wording ("about 3 hours ago") and handle the future too ("in 3 ' +
+      'minutes"). The reference for the Go, Ruby and Kotlin versions; used ' +
+      'by zouk.'
   },
   {
     symbol: 'Hk',
@@ -222,11 +228,11 @@ export const ELEMENTS = [
     family: 'libraries',
     tier: 'highlight',
     lang: 'Kotlin',
-    blurb: 'Human-readable file sizes and relative dates, in Kotlin.',
+    blurb: 'Finder-style file sizes and Rails-style relative dates, in Kotlin.',
     detail:
-      'Same human-readable sizes/dates idea, in Kotlin. Also doubles as ' +
-      "the real-world proving ground for kotidy's own describe/context/it " +
-      'tree renderer.'
+      'Same rules as the Swift original, with no platform formatter to lean ' +
+      'on. Published on Maven Central; used by huck, and the proving ground ' +
+      'for kwick and kotidy.'
   },
 
   // -- Infrastructure & Services ---------------------------------------
