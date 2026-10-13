@@ -11,7 +11,7 @@ export const LANGUAGES = [
   { name: 'Go', color: '#22d3ee' },
   { name: 'Kotlin', color: '#8b5de1' },
   { name: 'Java', color: '#bd7f26' },
-  { name: 'JavaScript', color: '#ffb700' },
+  { name: 'JS/TS', color: '#ffb700' },
   { name: 'Ruby', color: '#fb7185' },
   { name: 'Swift', color: '#ff6e55' }
 ]
@@ -80,7 +80,7 @@ export const ELEMENTS = [
     repo: 'next-caltrain-pwa',
     family: 'apps',
     tier: 'standard',
-    lang: 'JavaScript',
+    lang: 'JS/TS',
     blurb: 'Next Caltrain, as a PWA -- built for KaiOS feature phones.',
     detail:
       'A progressive web app version of the schedule, aimed squarely at ' +
@@ -218,8 +218,8 @@ export const ELEMENTS = [
       'Sizes come straight from Apple\'s ByteCountFormatter, so they match ' +
       'Finder exactly ("4.1 MB"). Relative dates use Rails ActionView\'s ' +
       'wording ("about 3 hours ago") and handle the future too ("in 3 ' +
-      'minutes"). The reference for the Go, Ruby and Kotlin versions; used ' +
-      'by zouk.'
+      'minutes"). The reference for the Go, Ruby, Kotlin and TypeScript ' +
+      'versions; used by zouk.'
   },
   {
     symbol: 'Hk',
@@ -233,6 +233,19 @@ export const ELEMENTS = [
       'Same rules as the Swift original, with no platform formatter to lean ' +
       'on. Published on Maven Central; used by huck, and the proving ground ' +
       'for kwick and kotidy.'
+  },
+  {
+    symbol: 'Ht',
+    name: 'humane-ts',
+    repo: 'humane-ts',
+    family: 'libraries',
+    tier: 'highlight',
+    lang: 'JS/TS',
+    blurb: 'Finder-style file sizes and Rails-style relative dates, in TypeScript.',
+    detail:
+      'The same rules again, for the browser, with no dependencies. Written ' +
+      'for lambada\'s scan page, which formats every size and age with it; ' +
+      'tested with Vitest\'s nested tree output.'
   },
 
   // -- Infrastructure & Services ---------------------------------------
@@ -305,7 +318,7 @@ export const ELEMENTS = [
     repo: 'common-cartridge-viewer',
     family: 'contrib',
     tier: 'standard',
-    lang: 'JavaScript',
+    lang: 'JS/TS',
     blurb: "Contributed to Instructure's Common Cartridge viewer.",
     detail:
       'A React app for viewing Common Cartridge course exports in the ' +
