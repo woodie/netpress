@@ -108,7 +108,7 @@ export const ELEMENTS = [
     family: 'testing',
     tier: 'highlight',
     lang: 'Kotlin',
-    blurb: 'justBeforeEach for Kotlin, alongside spec for Go and penultimate for Vitest.',
+    blurb: 'A justBeforeEach hook for Kotlin, alongside spec for Go and penultimate for Vitest.',
     detail:
       "Borrowed from Swift's Quick. Separate what varies (declared via " +
       'ordinary beforeEach in each context) from the action under test ' +
@@ -122,7 +122,7 @@ export const ELEMENTS = [
     family: 'testing',
     tier: 'highlight',
     lang: 'JS/TS',
-    blurb: "justBeforeEach for Vitest, with Vitest's own it.",
+    blurb: "A justBeforeEach hook for Vitest, with Vitest's own it.",
     detail:
       'Runs after every beforeEach at every depth, right before the test -- ' +
       "second to last, hence the name. Vitest's stock it stays, so it.each, " +
