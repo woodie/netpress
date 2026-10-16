@@ -40,9 +40,10 @@ other.
   invented for the post -- and note in passing that `seeded(dotw, mins)`
   is the clean factory that replaced an earlier `debugOverrideDotw`
   global, so nothing here needs an `afterEach` reset.
-- Two conventions from every real usage so far: one `justBeforeEach` per
-  nesting chain (sibling `context`s contribute only inputs, never a second
-  hook), and assigning the result straight into a `var` instead of routing
+- Two conventions from the real Kotlin and Swift usages: one
+  `justBeforeEach` per nesting chain (sibling `context`s contribute only
+  inputs, never a second hook), and assigning the result straight into a
+  `var` instead of routing
   it through a closure-style `subject`. That direct assignment is the
   eager version of RSpec's `subject`; keep the closure only for an `it`
   that has to call the action more than once.

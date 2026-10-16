@@ -1,7 +1,7 @@
 # Blog outline: RSpec Everywhere (overview post)
 
-Companion piece to the four language-specific posts (Kotlin, Go, Swift,
-Ruby). Ties them together under one thesis; doesn't re-explain any single
+Companion piece to the five language-specific posts (Kotlin, Go, Swift,
+JavaScript, Ruby). Ties them together under one thesis; doesn't re-explain any single
 tool in depth -- links out to the deep dives instead. Complements
 (doesn't replace) the conference-talk proposal already drafted in
 `rspec-everywhere.md` in this folder -- this outline is for the written,
@@ -45,8 +45,8 @@ re-implemented (not just approximated) in Kotlin, Go, and Swift.
     + `xctidy` (tree-rendered `xcodebuild`/`swift test` output).
   - **JS/TS:** Vitest already covers structure, matchers and a tree
     reporter (`--reporter=tree`); the one missing piece is the hook, which
-    `penultimate` adds. No dedicated post yet -- worth one once it's on
-    npm.
+    `penultimate` adds (its own post: `blog-outline-javascript.md`,
+    once it's on npm).
 - Callout: notice the shape repeats -- one structure library, one matcher
   library (or none needed, Kotlin/Swift), one renderer that turns raw
   runner output into a real nested tree. That repetition *is* the thesis.
@@ -104,7 +104,7 @@ re-implemented (not just approximated) in Kotlin, Go, and Swift.
 
 ## 5. Where to go deeper
 
-- Link out to the four language posts (one line of teaser each) --
+- Link out to the five language posts (one line of teaser each) --
   including Ruby's, the odd one out: it didn't need a structure library or
   matchers, just the same tree-rendered report the other three get.
 - Link to the tools' READMEs/GitHub repos.
