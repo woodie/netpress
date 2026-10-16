@@ -16,6 +16,9 @@ describe('balancedCols', () => {
 
   it('respects a custom column cap', () => {
     expect(balancedCols(6, 4)).toBe(3)
+    // desktop rows: six stays one row, eight splits 4-over-4
+    expect(balancedCols(6, 6)).toBe(6)
+    expect(balancedCols(8, 6)).toBe(4)
   })
 })
 

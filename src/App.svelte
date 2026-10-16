@@ -13,7 +13,12 @@
       num += 1
       return { ...el, num, index: ELEMENTS.indexOf(el) }
     })
-    return { family, items, mobileCols: balancedCols(items.length) }
+    return {
+      family,
+      items,
+      mobileCols: balancedCols(items.length),
+      desktopCols: balancedCols(items.length, 6)
+    }
   })
 
   // -- language legend, with forced line-breaks every `legendCols` items --
@@ -145,10 +150,10 @@
 </div>
 
 <div id="grid">
-  {#each grouped as { family, items, mobileCols } (family.id)}
+  {#each grouped as { family, items, mobileCols, desktopCols } (family.id)}
     <div class="family-block">
       <h3 style="color:{family.color}">{family.name}</h3>
-      <div class="family-row" style="--mobile-cols:{mobileCols}">
+      <div class="family-row" style="--mobile-cols:{mobileCols};--desktop-cols:{desktopCols}">
         {#each items as el (el.index)}
           <button
             type="button"

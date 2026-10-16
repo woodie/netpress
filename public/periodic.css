@@ -139,6 +139,11 @@ p.lede {
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
+  /* Caps a desktop row at --desktop-cols tiles, set per family-row in
+     periodic.js (balancedCols(n, 6)): a family of up to six stays on one
+     row, while eight splits 4-over-4 instead of all eight in a line. */
+  max-width: calc(var(--desktop-cols, 6) * 92px + (var(--desktop-cols, 6) - 1) * 10px);
+  margin: 0 auto;
 }
 
 .element {
