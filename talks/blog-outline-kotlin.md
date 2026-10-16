@@ -40,6 +40,12 @@ other.
   invented for the post -- and note in passing that `seeded(dotw, mins)`
   is the clean factory that replaced an earlier `debugOverrideDotw`
   global, so nothing here needs an `afterEach` reset.
+- Two conventions from every real usage so far: one `justBeforeEach` per
+  nesting chain (sibling `context`s contribute only inputs, never a second
+  hook), and assigning the result straight into a `var` instead of routing
+  it through a closure-style `subject`. That direct assignment is the
+  eager version of RSpec's `subject`; keep the closure only for an `it`
+  that has to call the action more than once.
 - Setup: registering `JustBeforeEachExtension` on `ProjectConfig` --
   and the gotcha that a forgotten registration is a silent no-op.
 - The `runCatching`-outcome convention: hoisting an action that might throw
@@ -58,7 +64,13 @@ other.
   whether subclassing `DescribeSpec` is safe with more complex setups,
   listeners, and extensions, and whether there are threading gotchas --
   which is precisely what `JustBeforeEachExtension` had to get right as a
-  real, working extension rather than a proposal. Worth a line wondering
+  real, working extension rather than a proposal. One concrete example of
+  what that took: Kotest represents every `describe`/`context` as a
+  `TestCase` too, so the first version also wrapped containers and ran
+  the hoisted action during tree discovery. It surfaced as an
+  `UninitializedPropertyAccessException` on a `lateinit var` in
+  `next-caltrain-kotlin`, and the fix was to wrap only
+  `TestType.Test`. Worth a line wondering
   in print whether this could ever land upstream in `DescribeSpec` itself
   (making `kwick` unnecessary -- a fine outcome) -- the issue being closed,
   unresolved, since 2019 suggests it isn't coming soon.

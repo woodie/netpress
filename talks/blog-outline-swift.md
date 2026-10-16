@@ -18,6 +18,11 @@ that.
 
 - Quick gives real nested `describe`/`context`/`it`; Nimble gives
   RSpec-style matchers. Nothing missing on the *writing* side.
+- Quick also has `justBeforeEach` built in -- this is where the family
+  got it. `next-caltrain-swift`'s specs and `zouk`'s `ScanClientSpec`
+  used it first, and `kwick` (Kotlin), `woodie/spec` (Go) and
+  `penultimate` (Vitest) port the same hook. One line here, linking to
+  the overview post, which tells that story.
 - What's missing: `xcodebuild test`'s own console output is noisy and
   flat relative to the structure you actually wrote.
 - Existing alternatives and their gap: xcbeautify/xcpretty clean up

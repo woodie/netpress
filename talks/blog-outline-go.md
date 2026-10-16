@@ -72,7 +72,15 @@ requiring the other, and neither requiring Ginkgo.
   naming consistency with Ginkgo/RSpec/Jest/Kotest, and a real
   `JustBeforeEach` upstream never had.
 - One short, complete example: a full suite using all three, piped through
-  `gorderly -fd`, rendering as a real tree.
+  `gorderly -fd`, rendering as a real tree. Start from `woodie/spec`'s
+  README `#divide` suite: defaults set in the parent `it.BeforeEach`, each
+  `context` overriding one input, one `it.JustBeforeEach` making the call.
+  It's the same example the `kwick` and `penultimate` READMEs use, so the
+  overview post can line them up.
+- Go's error path needs no special convention: when the action returns
+  `(result, err)`, `it.JustBeforeEach` assigns both, and an error-path
+  `context` checks `err` with `expect`'s `HaveOccurred`. Kotlin needs
+  `runCatching` and TypeScript a `try`/`catch` for the same thing.
 - Each piece is independent and swappable -- `expect` works in
   table-driven tests with no BDD framework at all; `gorderly` renders any
   suite's output, `spec`-based or not.

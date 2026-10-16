@@ -60,6 +60,10 @@ give their own languages for free. `rutidy` is what closes that gap.
 - Short callback to the overview post's repeating shape (structure +
   matchers + renderer) -- Ruby needed only the third piece, since RSpec
   already owns the first two outright.
+- The same goes for `justBeforeEach`: RSpec never needed it, because
+  `let` and `subject` are lazy and only run once an `it` asks for them,
+  after every `before` hook. The other languages' hook is their
+  translation of that laziness.
 
 ## 5. Try it
 

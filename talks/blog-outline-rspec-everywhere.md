@@ -43,16 +43,31 @@ re-implemented (not just approximated) in Kotlin, Go, and Swift.
     (tree-rendered `go test -v` output).
   - **Swift:** Quick/Nimble (structure + matchers, already RSpec-shaped)
     + `xctidy` (tree-rendered `xcodebuild`/`swift test` output).
+  - **JS/TS:** Vitest already covers structure, matchers and a tree
+    reporter (`--reporter=tree`); the one missing piece is the hook, which
+    `penultimate` adds. No dedicated post yet -- worth one once it's on
+    npm.
 - Callout: notice the shape repeats -- one structure library, one matcher
   library (or none needed, Kotlin/Swift), one renderer that turns raw
   runner output into a real nested tree. That repetition *is* the thesis.
 - A second, smaller repetition worth naming: Ginkgo's `JustBeforeEach`
   (a hook that runs after every `BeforeEach` at every level, right before
-  the test) turns out to be a gap in more than one ecosystem. Kotest's
+  the test) turns out to be a gap in more than one ecosystem. Quick has
+  it natively, which is where this family first used it. Kotest's
   `DescribeSpec` never had it -- `kwick` adds it as an extension. Upstream
   `sclevine/spec` never had it either -- `woodie/spec` adds it directly,
-  forking rather than extending. Two different mechanisms, same missing
-  piece, same source of truth (Ginkgo) cited in both.
+  forking rather than extending. Vitest doesn't have it -- `penultimate`
+  adds it by swapping each test's body for one that runs the queued steps
+  first, leaving Vitest's own `it` alone. Three different mechanisms, same
+  missing piece.
+- One example, four languages: the `kwick`, `woodie/spec` and
+  `penultimate` READMEs now share the same `#divide` example (defaults in
+  the parent, each `context` overriding one input, one hoisted action).
+  Put it side by side with the RSpec version as the post's main figure --
+  the checkable version of "same shape everywhere." The language posts
+  keep their real-project examples (Kotlin's `GoodTimesSpec.kt`); the
+  overview is where one shared toy example earns its place, since a
+  comparison needs the same example in every column.
 
 ## 3. Where the translation is faithful vs. where it isn't
 
@@ -64,6 +79,18 @@ re-implemented (not just approximated) in Kotlin, Go, and Swift.
   Quick/Nimble so no new structure library was needed there at all.
 - The principle: match each language's own idiom rather than importing a
   pattern verbatim from wherever it was invented.
+- The clearest case: `justBeforeEach` is how an eager language gets
+  RSpec's lazy `subject`. RSpec never needs the hook -- `subject` is
+  evaluated when an `it` first touches it, after every `before` and with
+  the innermost `let` override in place. Elsewhere, the mapping is:
+  defaults in a parent `beforeEach` play `let`, a `context`'s own
+  `beforeEach` plays the `let` override, and `justBeforeEach` plays
+  `subject`. RSpec's style-guide order (`subject`, then `let`, then
+  hooks) has the same shape.
+- The error path translates per language too: an action under test that
+  might throw has to be captured as a value, not left to fail setup.
+  Kotlin uses `runCatching`, TypeScript a `try`/`catch` that clears the
+  outcome first, and Go gets it for free from `(result, err)` returns.
 
 ## 4. Why this matters for AI-paired development specifically
 
