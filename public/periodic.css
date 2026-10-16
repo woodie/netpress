@@ -134,17 +134,30 @@ p.lede {
   opacity: 0.85;
 }
 
+/* Grid, not flex-wrap: flex-wrap breaks rows by however many 92px tiles
+   fit (five and one for six tiles at some widths), which reads unevenly.
+   Each family-row carries --c1..--c6 from periodic.js, the column count
+   balancedCols() picks for that family when at most k tiles fit across,
+   and the container queries below choose one by #grid's own width. So six
+   tiles go 6, then 3+3, then 2+2+2; eight go 4+4, then 3+3+2, then
+   2+2+2+2. A k-tile row needs 92k + 10(k - 1) px. Fixed 92px columns
+   centered, not 1fr, keep tiles their natural size instead of stretching
+   a 2-column row's tiles past a 3-column row's. */
+#grid { container-type: inline-size; }
+
 .family-row {
-  display: flex;
-  flex-wrap: wrap;
+  --cols: var(--c1, 1);
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 92px);
   justify-content: center;
   gap: 10px;
-  /* Caps a desktop row at --desktop-cols tiles, set per family-row in
-     periodic.js (balancedCols(n, 6)): a family of up to six stays on one
-     row, while eight splits 4-over-4 instead of all eight in a line. */
-  max-width: calc(var(--desktop-cols, 6) * 92px + (var(--desktop-cols, 6) - 1) * 10px);
-  margin: 0 auto;
 }
+
+@container (min-width: 194px) { .family-row { --cols: var(--c2, 2); } }
+@container (min-width: 296px) { .family-row { --cols: var(--c3, 3); } }
+@container (min-width: 398px) { .family-row { --cols: var(--c4, 4); } }
+@container (min-width: 500px) { .family-row { --cols: var(--c5, 5); } }
+@container (min-width: 602px) { .family-row { --cols: var(--c6, 6); } }
 
 .element {
   --card-color: #8ecae6;
@@ -375,22 +388,6 @@ footer.bottom a:hover { color: #e6e9f2; }
   header.top .wordmark { font-size: 22px; }
   .detail-inner { flex-direction: column; }
   .detail-symbol { font-size: 40px; text-align: left; }
-
-  /* Grid instead of flex-wrap -- flex-wrap breaks rows by however many
-     92px tiles fit the viewport width (4 & 2 on most phones for six
-     tiles), which reads unevenly. --mobile-cols is set per family-row in
-     periodic.js (balancedCols()), picking whatever column count splits
-     that family's own tile count most evenly (3 for six, 2 for four) --
-     falls back to 3 if the inline custom property is ever missing.
-     Fixed-width (not 1fr) columns plus justify-content: center keeps
-     tiles the same natural size as desktop and centers the row, instead
-     of stretching tiles to fill the full row width -- 1fr made a
-     2-column row's tiles balloon well past a 3-column row's. */
-  .family-row {
-    display: grid;
-    grid-template-columns: repeat(var(--mobile-cols, 3), 92px);
-    justify-content: center;
-  }
 
   .element,
   .element:hover,

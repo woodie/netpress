@@ -13,12 +13,12 @@
       num += 1
       return { ...el, num, index: ELEMENTS.indexOf(el) }
     })
-    return {
-      family,
-      items,
-      mobileCols: balancedCols(items.length),
-      desktopCols: balancedCols(items.length, 6)
-    }
+    // --c1..--c6: the balanced column count when at most k tiles fit
+    // across; periodic.css picks one per width with container queries.
+    const colVars = [1, 2, 3, 4, 5, 6]
+      .map((k) => `--c${k}:${balancedCols(items.length, k)}`)
+      .join(';')
+    return { family, items, colVars }
   })
 
   // -- language legend, with forced line-breaks every `legendCols` items --
@@ -150,10 +150,10 @@
 </div>
 
 <div id="grid">
-  {#each grouped as { family, items, mobileCols, desktopCols } (family.id)}
+  {#each grouped as { family, items, colVars } (family.id)}
     <div class="family-block">
       <h3 style="color:{family.color}">{family.name}</h3>
-      <div class="family-row" style="--mobile-cols:{mobileCols};--desktop-cols:{desktopCols}">
+      <div class="family-row" style={colVars}>
         {#each items as el (el.index)}
           <button
             type="button"
