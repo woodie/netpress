@@ -108,11 +108,40 @@ export const ELEMENTS = [
     family: 'testing',
     tier: 'highlight',
     lang: 'Kotlin',
-    blurb: 'Now Kotlin can have justBeforeEach like Swift.',
+    blurb: 'justBeforeEach for Kotlin, alongside spec for Go and penultimate for Vitest.',
     detail:
-      'Separate what varies (declared via ordinary beforeEach in each context) ' +
-      'from the action under test (declared once, in the parent). Write tests ' +
-      'with easy access to nested context.'
+      "Borrowed from Swift's Quick. Separate what varies (declared via " +
+      'ordinary beforeEach in each context) from the action under test ' +
+      '(declared once, in the parent). Write tests with easy access to ' +
+      'nested context.'
+  },
+  {
+    symbol: 'Pn',
+    name: 'penultimate',
+    repo: 'penultimate',
+    family: 'testing',
+    tier: 'highlight',
+    lang: 'JS/TS',
+    blurb: "justBeforeEach for Vitest, with Vitest's own it.",
+    detail:
+      'Runs after every beforeEach at every depth, right before the test -- ' +
+      "second to last, hence the name. Vitest's stock it stays, so it.each, " +
+      'it.skip and it.concurrent keep working. The Vitest sibling of kwick ' +
+      'and spec.'
+  },
+  {
+    symbol: 'Sp',
+    name: 'spec',
+    repo: 'spec',
+    family: 'testing',
+    tier: 'highlight',
+    lang: 'Go',
+    blurb: 'Nested describe/context/it for go test, now with JustBeforeEach.',
+    detail:
+      'A fork of sclevine/spec that adds BeforeEach, AfterEach and ' +
+      'JustBeforeEach, the names Ginkgo, RSpec and Kotest already use. ' +
+      'Plain subtests on the standard testing package, paired with expect ' +
+      'for matchers and gorderly for output.'
   },
   {
     symbol: 'Ex',
