@@ -1,6 +1,6 @@
 <script>
   import { LANGUAGES, FAMILIES, ELEMENTS } from './data.js'
-  import { balancedCols, githubUrl, langColor, langMatches } from './helpers.js'
+  import { balancedCols, githubUrl, langColor, langLabel, langList, langMatches } from './helpers.js'
 
   // -- grid layout (static -- FAMILIES/ELEMENTS never change at runtime) --
   // Groups ELEMENTS by family in FAMILIES' own order (not ELEMENTS' raw
@@ -72,17 +72,16 @@
   }
 
   // -- detail drawer --------------------------------------------------
-  // Pinned to the bottom of the window. Opens only on a tile click
+  // Pinned to the bottom of the window; closed on page load. Opens only on a tile click
   // (showDetail()) and always auto-closes 5s later, unless a real mouse
   // is hovering the selected tile or the drawer itself, in which case
   // hovering just pauses that countdown (cancelDrawerClose()) -- it
   // never reopens an already-closed drawer.
   //
   // activeIndex is which ELEMENTS entry the drawer is showing (starts at
-  // 0, so the drawer has real content from the first render). selectedIndex
-  // is which tile gets the .active highlight, and stays null until the
-  // user actually clicks a tile -- matching the original's behavior of
-  // not highlighting tile 0 on the initial, click-less showDetail(0).
+  // 0, so the closed drawer still has real content to render).
+  // selectedIndex is which tile gets the .active highlight, and stays null
+  // until the user actually clicks a tile.
   let activeIndex = 0
   let selectedIndex = null
   let drawerOpen = false
@@ -122,10 +121,6 @@
     // the timer never starts at all and the drawer stays open forever.
     scheduleDrawerClose()
   }
-
-  // Same initial call the vanilla version made on DOMContentLoaded --
-  // opens the drawer on element 0 without marking any tile "active".
-  showDetail(0, false)
 </script>
 
 <div id="lang-legend" class="legend-row">
@@ -162,7 +157,7 @@
             class:filter-highlight={filterKey && langMatches(el.lang, filterKey)}
             class:filter-muted={filterKey && !langMatches(el.lang, filterKey)}
             style="--card-color:{langColor(el.lang)};--fam-color:{family.color}"
-            data-lang={el.lang}
+            data-lang={langList(el.lang).join(' ')}
             data-family={el.family}
             title={el.name}
             on:click={() => showDetail(el.index, true)}
@@ -197,7 +192,7 @@
   <div class="detail-inner">
     <div class="detail-symbol">{activeElement.symbol}</div>
     <div class="detail-body">
-      <h2>{activeElement.name} <span class="lang">{activeElement.lang}</span></h2>
+      <h2>{activeElement.name} <span class="lang">{langLabel(activeElement.lang)}</span></h2>
       <p class="detail-blurb">{activeElement.blurb}</p>
       <p class="detail-text">{activeElement.detail}</p>
       <a class="detail-link" href={githubUrl(activeElement.repo)} target="_blank" rel="noopener">

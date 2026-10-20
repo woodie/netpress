@@ -1,6 +1,8 @@
 // netpress "periodic table" homepage -- one entry per project, grouped into
 // families the way a real periodic table groups elements by shared
 // properties. Each entry links to its real github.com/woodie/<repo>.
+// `lang` is one LANGUAGES name, or an array of them (first one sets the
+// tile color; the legend filter matches any of them).
 
 // GitHub's per-language colors (linguist) run invert(1) hue-rotate(180deg) --
 // the classic light-to-dark-mode filter trick -- to get variants that read
@@ -81,10 +83,11 @@ export const ELEMENTS = [
     family: 'apps',
     tier: 'standard',
     lang: 'JS/TS',
-    blurb: 'Next Caltrain, as a PWA -- built for KaiOS feature phones.',
+    blurb: 'Next Caltrain as a PWA, and the home of the schedule feed.',
     detail:
-      'A progressive web app version of the schedule, aimed squarely at ' +
-      'KaiOS devices -- a third platform for the same one idea.'
+      'Started as the KaiOS feature-phone version; now it turns Caltrain\'s ' +
+      'GTFS into the schedule.json feed the iOS and Android apps read. The ' +
+      'PWA reads the same feed, and can plan a trip into Google Calendar.'
   },
   {
     symbol: 'Nj',
@@ -297,7 +300,7 @@ export const ELEMENTS = [
     repo: 'lambada',
     family: 'infra',
     tier: 'highlight',
-    lang: 'Go',
+    lang: ['Go', 'JS/TS'],
     blurb: 'A scan server for old scanners, in Go.',
     detail:
       'Embraces web dev standards from Ruby, by way of its partner ' +

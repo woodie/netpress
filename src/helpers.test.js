@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { balancedCols, githubUrl, langColor, langMatches } from './helpers.js'
+import { balancedCols, githubUrl, langColor, langLabel, langList, langMatches } from './helpers.js'
 
 describe('balancedCols', () => {
   it('returns n as-is when at or under the column cap', () => {
@@ -28,13 +28,31 @@ describe('githubUrl', () => {
   })
 })
 
+describe('langList', () => {
+  it('wraps a single language', () => {
+    expect(langList('Go')).toEqual(['Go'])
+  })
+
+  it('passes an array through', () => {
+    expect(langList(['Go', 'JS/TS'])).toEqual(['Go', 'JS/TS'])
+  })
+
+  it('treats JS/TS as one language, not two', () => {
+    expect(langList('JS/TS')).toEqual(['JS/TS'])
+  })
+
+  it('is empty for a missing language', () => {
+    expect(langList(undefined)).toEqual([])
+  })
+})
+
 describe('langColor', () => {
   it('returns the exact match color', () => {
     expect(langColor('Go')).toBe('#22d3ee')
   })
 
-  it('matches the first language in a compound entry', () => {
-    expect(langColor('Ruby / Docker')).toBe(langColor('Ruby'))
+  it('uses the first language of an array', () => {
+    expect(langColor(['Go', 'JS/TS'])).toBe(langColor('Go'))
   })
 
   it('falls back for an unknown or missing language', () => {
@@ -48,12 +66,21 @@ describe('langMatches', () => {
     expect(langMatches('Swift', 'Swift')).toBe(true)
   })
 
-  it('matches one language within a compound "A / B" entry', () => {
-    expect(langMatches('Ruby / Docker', 'Docker')).toBe(true)
+  it('matches any language in an array', () => {
+    expect(langMatches(['Go', 'JS/TS'], 'Go')).toBe(true)
+    expect(langMatches(['Go', 'JS/TS'], 'JS/TS')).toBe(true)
   })
 
   it('does not match an unrelated language, or a missing one', () => {
     expect(langMatches('Swift', 'Kotlin')).toBe(false)
+    expect(langMatches(['Go', 'JS/TS'], 'Ruby')).toBe(false)
     expect(langMatches(undefined, 'Kotlin')).toBe(false)
+  })
+})
+
+describe('langLabel', () => {
+  it('lists every language', () => {
+    expect(langLabel(['Go', 'JS/TS'])).toBe('Go · JS/TS')
+    expect(langLabel('Swift')).toBe('Swift')
   })
 })

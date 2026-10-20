@@ -15,19 +15,25 @@ export function githubUrl (repo) {
   return `https://github.com/woodie/${repo}`
 }
 
+// An element's lang is one language name, or an array of them for a
+// project written in several (e.g. ['Go', 'JS/TS']). Names match LANGUAGES
+// exactly -- 'JS/TS' is a single legend entry, not two.
+export function langList (lang) {
+  if (!lang) return []
+  return Array.isArray(lang) ? lang : [lang]
+}
+
+// Tiles take the first language's color
 export function langColor (lang) {
   const fallback = '#8ecae6'
-  if (!lang) return fallback
-  const exact = LANGUAGES.find((l) => l.name === lang)
-  if (exact) return exact.color
-  // compound entries like "Ruby / Docker" -- match on the first language
-  const first = lang.split('/')[0].trim()
-  const partial = LANGUAGES.find((l) => l.name === first)
-  return partial ? partial.color : fallback
+  const found = LANGUAGES.find((l) => l.name === langList(lang)[0])
+  return found ? found.color : fallback
 }
 
 export function langMatches (elLang, lang) {
-  if (!elLang) return false
-  if (elLang === lang) return true
-  return elLang.split('/').map((s) => s.trim()).includes(lang)
+  return langList(elLang).includes(lang)
+}
+
+export function langLabel (lang) {
+  return langList(lang).join(' · ')
 }
