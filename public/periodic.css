@@ -140,16 +140,21 @@ p.lede {
    balancedCols() picks for that family when at most k tiles fit across,
    and the container queries below choose one by #grid's own width. So six
    tiles go 6, then 3+3, then 2+2+2; eight go 4+4, then 3+3+2, then
-   2+2+2+2. A k-tile row needs 92k + 10(k - 1) px. Fixed 92px columns
-   centered, not 1fr, keep tiles their natural size instead of stretching
-   a 2-column row's tiles past a 3-column row's. */
+   2+2+2+2. A k-tile row needs 92k + 10(k - 1) px. Columns at least 92px
+   and centered, not 1fr, keep tiles their natural size instead of
+   stretching a 2-column row's tiles past a 3-column row's. A hovered tile
+   widens its column (auto) and pushes its neighbors aside; the column
+   count comes only from #grid's width, so that never rewraps a row.
+   justify-items keeps the column's other tiles centered under it. */
 #grid { container-type: inline-size; }
 
 .family-row {
   --cols: var(--c1, 1);
   display: grid;
-  grid-template-columns: repeat(var(--cols), 92px);
+  grid-template-columns: repeat(var(--cols), minmax(92px, auto));
   justify-content: center;
+  justify-items: center;
+  align-items: start;
   gap: 10px;
 }
 
