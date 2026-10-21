@@ -20,3 +20,6 @@ __pycache__/
 
 # Working docs (blog/talk outlines, etc.) -- not part of the deployed app
 /talks/
+
+# Build tooling, not part of the deployed app (only public/ is served)
+node_modules/
