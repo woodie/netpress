@@ -57,16 +57,6 @@ export const ELEMENTS = [
       'A real-world check on humane-swift, with test output from xctidy.'
   },
   {
-    symbol: 'Nk',
-    name: 'Next Caltrain Kotlin',
-    repo: 'next-caltrain-kotlin',
-    family: 'apps',
-    tier: 'highlight',
-    lang: 'Kotlin',
-    blurb: 'Next Caltrain, for Android.',
-    detail: 'The Android build of the Next Caltrain schedule app.'
-  },
-  {
     symbol: 'Ns',
     name: 'Next Caltrain Swift',
     repo: 'next-caltrain-swift',
@@ -74,7 +64,36 @@ export const ELEMENTS = [
     tier: 'highlight',
     lang: 'Swift',
     blurb: 'Next Caltrain, for iOS.',
-    detail: 'The iOS build of the same schedule app, native Swift.'
+    detail:
+      'A live countdown to your next Caltrain. It works out which schedule ' +
+      'runs today (weekday, weekend or holiday) and always has a train ' +
+      'selected. Native Swift, and the baseline the other ports follow.'
+  },
+  {
+    symbol: 'Nk',
+    name: 'Next Caltrain Kotlin',
+    repo: 'next-caltrain-kotlin',
+    family: 'apps',
+    tier: 'highlight',
+    lang: 'Kotlin',
+    blurb: 'Next Caltrain, for Android.',
+    detail:
+      'The Android port of next-caltrain-swift, in Kotlin, with the same ' +
+      'specs word for word.'
+  },
+  {
+    symbol: 'Nr',
+    name: 'Next Caltrain React',
+    repo: 'next-caltrain-react',
+    family: 'apps',
+    tier: 'highlight',
+    lang: 'JS/TS',
+    blurb: 'Next Caltrain, in the browser.',
+    detail:
+      'The web port, in React and TypeScript with KendoReact, plus a planner ' +
+      'that puts a trip in your calendar. It builds its own schedule feed ' +
+      'from Caltrain\'s GTFS in GitHub Actions and serves it as a static ' +
+      'file, with no server.'
   },
   {
     symbol: 'Np',
