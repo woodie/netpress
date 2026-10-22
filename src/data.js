@@ -90,7 +90,7 @@ export const ELEMENTS = [
     lang: 'JS/TS',
     blurb: 'Next Caltrain, in the browser.',
     detail:
-      'The web port, in React and TypeScript with KendoReact, plus a planner ' +
+      'The web port, in React and TypeScript, plus a planner ' +
       'that puts a trip in your calendar. It builds its own schedule feed ' +
       'from Caltrain\'s GTFS in GitHub Actions and serves it as a static ' +
       'file, with no server.'
