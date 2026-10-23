@@ -116,7 +116,41 @@ describe('checkout', () => {
     passes"` would otherwise need every `it` in it to repeat
     `await checkout(...)` and then advance the clock.
 
-## 3. The real example: `lambada`'s page spec
+## 3. Why we need it
+
+The question people ask is "why do we need this?" There are several
+answers, strongest first:
+
+1. **Tested on a real app already.** The same Caltrain app's tests, by the
+   same author, in Swift and Kotlin. The Swift specs read cleanly because
+   Quick has `justBeforeEach` (adopted 2026-07-07). The Kotlin specs
+   didn't, until `kwick` added the same hook to Kotest (2026-07-25). The
+   fix wasn't better tests, it was the hook.
+2. **Each `context` changes one input; the action is written once.**
+   Section 2's `order.coupon` and `order.card`. A parent's `beforeEach`
+   can't hold the action, because it runs before any child has changed
+   anything.
+3. **The alternative fails silently.** When the `it` blocks check side
+   effects, a forgotten call leaves the "nothing happened" tests passing,
+   and a forgotten `await` passes some tests and fails others, depending on
+   where the function pauses. Both checked by running section 2's example.
+4. **Nested contexts can add a step after the action.** "And a minute
+   passes", "and the user taps again", without every `it` repeating the
+   action and then the step, in order.
+5. **It's a familiar idea, not a new one.** Quick and Ginkgo have had it
+   for years, and it explains itself: it runs right before each test.
+   Saying Vitest or Kotest users don't need it is like saying they don't
+   need `beforeEach`, since they could call a setup function in every
+   test.
+6. **Parity across ports is how a person keeps control.** With Claude
+   maintaining several codebases (the reason the Caltrain apps aren't one
+   Dart app), the tests are where a person keeps track of what's covered.
+   Swift, Kotlin and the React port should show the same
+   `describe`/`context`/`it` tree with the same setup, so they can be
+   compared side by side. Screenshot: Quick's output next to Vitest's
+   `--reporter=tree` for `CalendarTrip`.
+
+## 4. The real example: `lambada`'s page spec
 
 - `lambada`'s `spec/javascript/main.spec.js`, `"clicking delete"`: the
   top-level `beforeEach` stubs `confirm` to return `true` and the server
@@ -132,7 +166,7 @@ describe('checkout', () => {
 - The shared `#divide` example from the README is for the overview post's
   side-by-side figure; this post leads with checkout, then the real one.
 
-## 4. How it works without wrapping `it`
+## 5. How it works without wrapping `it`
 
 - The first draft exported its own `it` that ran the queued steps. It
   broke `it.each`/`it.skip`/`it.concurrent`, and a forgotten import
@@ -149,7 +183,7 @@ describe('checkout', () => {
   async steps, `it.each`, `it.concurrent` and `retry`, each with its own
   `context`.
 
-## 5. A step that might throw
+## 6. A step that might throw
 
 - Hoisting an action that's expected to fail breaks naively: the throw
   fails the test before any expectation runs.
@@ -158,7 +192,7 @@ describe('checkout', () => {
   `kwick`'s `runCatching` convention; Go gets it for free from
   `(result, err)`.
 
-## 6. Vitest 5, and taking it upstream
+## 7. Vitest 5, and taking it upstream
 
 - Why the package says `vitest >=4.1.0 <5`: Vitest 5 bundles
   `@vitest/runner`, and its replacement, `TestRunner.setTestFn`, is
@@ -173,7 +207,7 @@ describe('checkout', () => {
   contributor's own voice -- a natural place to say how this series uses
   AI pairing.
 
-## 7. Try it
+## 8. Try it
 
 - Links: `penultimate` GitHub repo and npm page, install snippet
   (`npm install --save-dev penultimate`, into `devDependencies`).
