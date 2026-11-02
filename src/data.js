@@ -57,6 +57,20 @@ export const ELEMENTS = [
       'A real-world check on humane-swift, with test output from xctidy.'
   },
   {
+    symbol: 'Sr',
+    name: 'Street Ranges',
+    repo: 'street-ranges',
+    family: 'apps',
+    tier: 'highlight',
+    lang: 'JS/TS',
+    blurb: 'A street address to a voter precinct, right in the browser.',
+    detail:
+      'Builds street ranges for San Mateo and Santa Clara Counties from ' +
+      'county precinct shapes and address lists, with Census TIGER filling ' +
+      'in the rest. One small static file per zipcode, so lookups are ' +
+      'instant and the address never leaves the device. Its specs use penultimate.'
+  },
+  {
     symbol: 'Ns',
     name: 'Next Caltrain Swift',
     repo: 'next-caltrain-swift',
