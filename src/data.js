@@ -66,10 +66,9 @@ export const ELEMENTS = [
     blurb: 'A street address to a voter precinct, right in the browser.',
     detail:
       'Builds street ranges for any California county from county precinct ' +
-      'shapes and address lists, with Census TIGER filling in the rest. The ' +
-      'example covers San Mateo and Santa Clara Counties. One small static ' +
-      'file per zipcode, so lookups are instant and the address never leaves ' +
-      'the device. Its specs use penultimate.'
+      'shapes and address lists, with Census TIGER filling in the rest. One ' +
+      'small static file per zipcode, so lookups are instant and the address ' +
+      'never leaves the device. Its specs use penultimate.'
   },
   {
     symbol: 'Ns',
