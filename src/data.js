@@ -65,10 +65,11 @@ export const ELEMENTS = [
     lang: 'JS/TS',
     blurb: 'A street address to a voter precinct, right in the browser.',
     detail:
-      'Builds street ranges for any California county from county precinct ' +
-      'shapes and address lists, with Census TIGER filling in the rest. One ' +
-      'small static file per zipcode, so lookups are instant and the address ' +
-      'never leaves the device. Its specs use penultimate.'
+      'Street ranges built from public data turn a street address into a ' +
+      'precinct. The lookup runs in the browser from static files, so it needs ' +
+      'no API call and the address never leaves the device. A sample app covers ' +
+      'San Francisco, San Mateo and Santa Clara Counties and renders a map of ' +
+      'each precinct.'
   },
   {
     symbol: 'Ns',
