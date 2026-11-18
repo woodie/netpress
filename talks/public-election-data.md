@@ -32,6 +32,11 @@ Outline:
 
 Knowing what's on your ballot shouldn't depend on who can afford a data vendor. Every California county already reports precinct data to the Statewide Database after each statewide election, and the Census publishes street ranges nationwide, so anyone can build this for any county today. Counties hold the exact answer, though, and could publish it with little effort. Showing that the public path works, and where it falls short, gives election offices a concrete reason to step up and publish the exact data.
 
+## References
+
+- Dan Scollon, "Geographic Information Systems (GIS)," [TEDxRedding](https://www.youtube.com/watch?v=9V_Mz7NDy3o).
+  A GIS educator at Shasta College makes the case for GIS to a general audience.
+
 ## Speaker Profile
 
 **Name:** John Woodell
