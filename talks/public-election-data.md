@@ -4,33 +4,33 @@
 
 ## Abstract
 
-A voter's first question is "what's on my ballot?", and answering it takes one fact: the precinct for their address. Counties hold that answer, and campaigns and parties buy it from data vendors; everyone else gets "here's everything in your ZIP code." This talk shows that anyone can build the address-to-precinct match today from public data alone, without ever collecting a voter's address, and makes the case for county governments to step up and make it easier and more accurate.
+A voter's first question is "what's on my ballot?", and answering it takes one fact: the precinct for their address. Counties hold that answer, and campaigns and parties buy it from data vendors. Everyone else gets "here's everything in your ZIP code." This talk shows a precinct lookup for all 58 California counties, built only from data the counties publish themselves, running entirely in the browser. It ends with what any county can publish, often in minutes, to make the lookup exact.
 
 ## Detailed Description
 
-Building a cross-county voter guide for the Peninsula Democratic Coalition (San Mateo and Santa Clara Counties, November 2026), I needed precincts for Santa Clara addresses. The county's voter data staff pointed me to its "Look Up Your Districts" page, which is already approved for public use and shows a voter's precinct. But it's a page for people, not programs: a voter guide could only send voters there to copy a precinct number and come back, and it wasn't clear who could approve an API for it. I was shown a page for requesting an API key, but the details never arrived.
+It started with a cross-county voter guide for the Peninsula Democratic Coalition (San Mateo and Santa Clara Counties, November 2026). The guide needed each address's precinct. Census TIGER street ranges and the Statewide Database's voters by block got about three addresses in four, and the misses clustered where a precinct line runs behind houses or along long rural roads.
 
-So I looked at what's already public. Two sources were enough: Census TIGER street address ranges, which give the house numbers on each side of every street segment, and UC Berkeley's Statewide Database, which counts registered voters by Census block and precinct. Each side of a street gets the precinct of the block it faces.
+So I looked at what counties already publish, and it turned out to be a lot. Most California counties keep their precincts and address points as public map layers, nearly all on ArcGIS. Placing each address point on the county's precinct map and joining neighbors into street ranges answers about 99.9% of a county's own addresses. A few counties go further and publish street data, each address with the precinct the county assigns it, and those are a direct mapping. Some of the smallest counties lead: Inyo, with 18,000 people, and Tehama publish exactly that.
 
-Checked against San Mateo's existing street ranges, the public-data ranges answer about three addresses in four, and the endorsed ballot they show is right about 99.8% of the time. The misses cluster where a precinct line runs behind houses through the middle of a block, and on long rural roads. Addresses without a range fall back to the ZIP code.
+Every county's precincts become public eventually, through the Statewide Database after each election. A lookup is needed before an election, though, when precincts have already been redrawn. Publishing the current map is just being early with what's going public anyway.
 
-The guide does the whole match in the browser: no server, no stored addresses, nothing for anyone to leak.
+The result is an open-source package, precinct-lookup, and a public demo. The data is a small file per ZIP code, the match happens in the browser, no voter data is used, and the address never leaves the device.
 
 Outline:
 
 1. The voter's question, and why it comes down to one fact: the precinct.
-2. Who has the answer today: the county, and whoever can pay a data vendor.
-3. What we found along the way: the county's district lookup works for a person at a keyboard, not for a guide, and there's no clear path to an API.
-4. What's already public: Census address ranges and Statewide Database block counts. No names, no voter file.
-5. Building it: each side of a street gets its block's precinct. Demo: address in, precinct out, in the browser.
-6. How good is it: measured against San Mateo's existing street ranges, with a look at the wrong answers and why most don't change the ballot.
-7. Privacy by design: a static site where the address never leaves the browser.
-8. The ask: counties already hold the exact answer. Publishing address points with a precinct column, or street ranges, is an easy button for every newspaper, club and small party.
-9. Takeaway: we can do this today with public data; counties can make it easier and more accurate for everyone.
+2. What every county already publishes, directly or through the Statewide Database.
+3. Three ways to build a lookup from it: street data, address points, and parcels, with Census ranges filling gaps.
+4. All 58 counties: a quick tour of who publishes what, sorted so a county can find its neighbors and its size.
+5. Demo: address in, precinct out, in the browser.
+6. How good is it, measured against each county's own addresses, and where the misses come from.
+7. Privacy by design: no voter data, no server, and the address never leaves the browser.
+8. The ask: publish current precincts and addresses as public layers, and street data where possible. Publishing once is less work than answering the same request every election.
+9. Takeaway: do a little and get back a lot. One public layer can make a county's lookup exact for everyone.
 
 ## Why This Talk Matters
 
-Knowing what's on your ballot shouldn't depend on who can afford a data vendor. Every California county already reports precinct data to the Statewide Database after each statewide election, and the Census publishes street ranges nationwide, so anyone can build this for any county today. Counties hold the exact answer, though, and could publish it with little effort. Showing that the public path works, and where it falls short, gives election offices a concrete reason to step up and publish the exact data.
+Knowing what's on your ballot shouldn't depend on who can afford a data vendor. California counties already publish most of what a precinct lookup needs, and the rest is often a sharing setting away. Showing that a statewide lookup works today, from public data alone, gives every election office a concrete, low-cost reason to publish current data, and gives newspapers, clubs and small parties a free tool to build on.
 
 ## References
 
