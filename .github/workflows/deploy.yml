@@ -1,18 +1,27 @@
-# Every push to main is checked, built and deployed, so main is always
-# what's live at the homepage.
+# Every push to main is checked, built and published to GitHub Pages (netpress.com),
+# so main is always what's live at the homepage.
 name: Deploy
 
 on:
   push:
     branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    concurrency: deploy
-    permissions:
-      contents: read
-      id-token: write # for Workload Identity Federation
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -22,11 +31,9 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npm run build
-      - uses: google-github-actions/auth@v2
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
         with:
-          # Woodie's shared GitHub pool (in outgoing-netpress), and this
-          # project's deploy-only account, which trusts only this repo.
-          workload_identity_provider: projects/755408181451/locations/global/workloadIdentityPools/github/providers/github
-          service_account: github-deploy@outgoing-netpress.iam.gserviceaccount.com
-      - uses: google-github-actions/setup-gcloud@v2
-      - run: npm run deploy
+          path: public
+      - id: deployment
+        uses: actions/deploy-pages@v4
