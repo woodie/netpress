@@ -10,14 +10,14 @@ import { svelte } from '@sveltejs/vite-plugin-svelte'
 export default defineConfig({
   plugins: [svelte()],
   // public/ is both the source of hand-edited static files (index.html,
-  // periodic.css, logo.png) and the build's outDir -- so Vite's own
+  // periodic.css, the icons) and the build's outDir -- so Vite's own
   // publicDir-copy step (which assumes those are two separate folders)
   // would just be copying public/ onto itself. Turned off; nothing needs
   // copying since it's all already sitting there.
   publicDir: false,
   build: {
     outDir: 'public',
-    emptyOutDir: false, // public/ also holds index.html, periodic.css, logo.png -- don't wipe those
+    emptyOutDir: false, // public/ also holds index.html, periodic.css, the icons -- don't wipe those
     lib: {
       entry: 'src/main.js',
       formats: ['iife'],
